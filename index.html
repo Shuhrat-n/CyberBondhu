@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CyberBondhu - Your Online Safety Friend</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            🛡️ CyberBondhu
+        </div>
+
+        <p>Your friendly online safety assistant</p>
+    </header>
+
+
+    <!-- Navigation -->
+    <nav class="navigation" aria-label="Main navigation">
+
+        <button onclick="showPage('home')">
+            Home
+        </button>
+
+        <button onclick="showPage('scam')">
+            Scam Checker
+        </button>
+
+        <button onclick="showPage('vault')">
+            Password Vault
+        </button>
+
+    </nav>
+
+
+    <main class="container">
+
+        <!-- HOME PAGE -->
+        <section id="home" class="page">
+
+            <h1>Welcome to CyberBondhu!</h1>
+
+            <p class="intro">
+                Your trusted companion for staying safer online.
+                We are here to help you recognize suspicious messages
+                and understand online security.
+            </p>
+
+            <div class="card-container">
+
+                <article class="card">
+                    <div class="icon">🔍</div>
+
+                    <h2>Check a Message</h2>
+
+                    <p>
+                        Unsure about a message or link?
+                        Check it for possible warning signs.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        onclick="showPage('scam')">
+
+                        Check Message
+
+                    </button>
+                </article>
+
+
+                <article class="card">
+                    <div class="icon">🔐</div>
+
+                    <h2>Password Vault</h2>
+
+                    <p>
+                        Learn about keeping your account
+                        passwords organized and protected.
+                    </p>
+
+                    <button
+                        class="primary-button"
+                        onclick="showPage('vault')">
+
+                        Open Vault
+
+                    </button>
+                </article>
+
+
+                <article class="card">
+                    <div class="icon">💡</div>
+
+                    <h2>Online Safety Tip</h2>
+
+                    <p>
+                        Never share your password or OTP
+                        with someone who contacts you unexpectedly.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- SCAM CHECKER PAGE -->
+        <section id="scam" class="page hidden">
+
+            <h1>🔍 Scam Message Checker</h1>
+
+            <p>
+                Paste a suspicious message below to look
+                for some common warning signs.
+            </p>
+
+            <label for="messageInput">
+                Enter your message:
+            </label>
+
+            <textarea
+                id="messageInput"
+                placeholder="Example: Your account will be blocked.
+                Click this link immediately to verify your account."
+                rows="6">
+            </textarea>
+
+            <button
+                class="primary-button"
+                onclick="checkMessage()">
+
+                Check Message
+
+            </button>
+
+            <div
+                id="result"
+                class="result"
+                aria-live="polite"
+                role="status">
+
+            </div>
+
+            <button
+                class="secondary-button"
+                onclick="showPage('home')">
+
+                Back to Home
+
+            </button>
+
+        </section>
+
+
+        <!-- PASSWORD VAULT PAGE -->
+        <section id="vault" class="page hidden">
+
+            <h1>🔐 Password Vault</h1>
+
+            <p>
+                Your passwords deserve protection.
+            </p>
+
+            <div class="notice">
+
+                <strong>Prototype notice</strong>
+
+                <p>
+                    This is a demonstration interface.
+                    It does not encrypt or securely store passwords yet.
+                    Do not enter any real passwords.
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <h2>My Vault</h2>
+
+                <p>
+                    In the full version, you will be able to
+                    unlock your vault and manage saved accounts.
+                </p>
+
+                <button
+                    class="primary-button"
+                    onclick="showVaultInfo()">
+
+                    Learn About My Vault
+
+                </button>
+
+                <p id="vaultMessage" aria-live="polite"></p>
+
+            </div>
+
+            <button
+                class="secondary-button"
+                onclick="showPage('home')">
+
+                Back to Home
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <p>
+            CyberBondhu © 2026
+        </p>
+
+        <p>
+            Stay alert. Stay safe. Stay connected.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
