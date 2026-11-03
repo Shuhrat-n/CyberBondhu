@@ -10,11 +10,21 @@ public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
 
-    @Column(nullable = false)
-    private String password; 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "password_hash", nullable = false)
+    private String password;
+
+    @Column(name = "kdf_salt", nullable = false)
+    private String kdfSalt;
+
+    @Column(name = "preferred_language")
+    private String preferredLanguage;
 }

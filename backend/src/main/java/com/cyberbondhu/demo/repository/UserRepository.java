@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     // This custom method allows us to find a user by their username
-    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
 }

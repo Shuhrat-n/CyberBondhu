@@ -23,55 +23,55 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
-    // REGISTER ENDPOINT
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody Map<String, String> request) {
-        String username = request.get("username");
+        String fullName = request.get("fullName");
+        String email = request.get("email");
         String password = request.get("password");
 
-        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Error: Username and password cannot be empty!");
+        if (fullName == null || email == null || password == null) {
+            return ResponseEntity.badRequest().body("Error: All fields are required!");
         }
 
-        if (userRepository.findByUsername(username).isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username already exists!");
+        if (userRepository.findByEmail(email).isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email already exists!");
         }
 
         User user = new User();
-        user.setUsername(username);
+        user.setFullName(fullName);
+        user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password)); 
-        userRepository.save(user);
+        user.setKdfSalt("dummy_salt_for_now"); // Will be updated by frontend JS later
+        user.setPreferredLanguage("en"); // Default
         
+        userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
     }
 
-    // LOGIN ENDPOINT
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
-        String username = request.get("username");
+        String email = request.get("email");
         String password = request.get("password");
 
-        if (username == null || password == null) {
-            return ResponseEntity.badRequest().body("Error: Invalid username or password");
+        if (email == null || password == null) {
+            return ResponseEntity.badRequest().body("Error: Invalid email or password");
         }
 
-        Optional<User> userOptional = userRepository.findByUsername(username);
+        Optional<User> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Invalid email or password");
         }
 
         User user = userOptional.get();
         
         if (passwordEncoder.matches(password, user.getPassword())) {
-            // Generate JWT token upon successful login
-            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
             String jwtToken = jwtService.generateToken(userDetails);
             
-            // Return the token as JSON
             return ResponseEntity.ok(Map.of("token", jwtToken, "message", "Login successful!"));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Invalid email or password");
         }
     }
 }
