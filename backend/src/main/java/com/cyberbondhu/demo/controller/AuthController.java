@@ -2,7 +2,11 @@ package com.cyberbondhu.demo.controller;
 
 import com.cyberbondhu.demo.model.User;
 import com.cyberbondhu.demo.repository.UserRepository;
-
+import com.cyberbondhu.demo.security.JwtService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
@@ -14,49 +18,60 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-    
     private final UserRepository userRepository;
-
-    
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     // REGISTER ENDPOINT
     @PostMapping("/register")
-    public String register(@RequestBody Map<String, String> request) {
+    public ResponseEntity<String> register(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String password = request.get("password");
 
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("Error: Username and password cannot be empty!");
+        }
+
         if (userRepository.findByUsername(username).isPresent()) {
-            return "Error: Username already exists!";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username already exists!");
         }
 
         User user = new User();
         user.setUsername(username);
-        // HASHING HAPPENS HERE: We encode the raw password before saving
         user.setPassword(passwordEncoder.encode(password)); 
-        
         userRepository.save(user);
-        return "User registered successfully!";
+        
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
     }
 
     // LOGIN ENDPOINT
     @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> request) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
         String username = request.get("username");
         String password = request.get("password");
+
+        if (username == null || password == null) {
+            return ResponseEntity.badRequest().body("Error: Invalid username or password");
+        }
 
         Optional<User> userOptional = userRepository.findByUsername(username);
 
         if (userOptional.isEmpty()) {
-            return "Error: User not found!";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Invalid username or password");
         }
 
         User user = userOptional.get();
-        // COMPARING HASHES: We check if the raw password matches the hash in the DB
+        
         if (passwordEncoder.matches(password, user.getPassword())) {
-            return "Login successful! Welcome " + username;
+            // Generate JWT token upon successful login
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+            String jwtToken = jwtService.generateToken(userDetails);
+            
+            // Return the token as JSON
+            return ResponseEntity.ok(Map.of("token", jwtToken, "message", "Login successful!"));
         } else {
-            return "Error: Incorrect password!";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: Invalid username or password");
         }
     }
 }
