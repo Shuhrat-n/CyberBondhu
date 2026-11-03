@@ -235,3 +235,47 @@ button:focus-visible {
         width: 92%;
     }
 }
+
+/* Vault Form Inputs */
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #879bb0;
+    border-radius: 8px;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+/* Vault List Items */
+.vault-item {
+    border-bottom: 1px solid #d3dfe9;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vault-item:last-child {
+    border-bottom: none;
+}
+
+.vault-info h3 {
+    margin: 0 0 5px 0;
+    color: #123b5d;
+}
+
+.vault-info p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.delete-btn {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}

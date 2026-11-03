@@ -131,14 +131,79 @@ function checkMessage() {
 
 // Password vault information demonstration
 
-function showVaultInfo() {
+// 1. We use Mock Data for now
+let mockVaultData = [
+    { id: 1, siteName: "Facebook", siteUrl: "https://facebook.com", accountUsername: "nakiba@example.com" },
+    { id: 2, siteName: "Gmail", siteUrl: "https://mail.google.com", accountUsername: "nakiba.demo@gmail.com" }
+];
 
-    const message =
-        document.getElementById("vaultMessage");
+// 2. Function to render (display) the passwords on the screen
+function renderVault() {
+    const vaultList = document.getElementById("vaultList");
+    
+    // Clear the "Loading..." text
+    vaultList.innerHTML = "";
 
-    message.textContent =
-        "The planned vault will protect saved credentials " +
-        "using encryption. Real password storage is not " +
-        "implemented in this prototype.";
+    if (mockVaultData.length === 0) {
+        vaultList.innerHTML = "<p>No passwords saved yet.</p>";
+        return;
+    }
 
+    // Loop through the data and create HTML for each item
+    mockVaultData.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "vault-item";
+        
+        div.innerHTML = `
+            <div class="vault-info">
+                <h3>${item.siteName}</h3>
+                <p>${item.accountUsername}</p>
+            </div>
+            <button class="delete-btn" onclick="deleteVaultItem(${item.id})">Delete</button>
+        `;
+        
+        vaultList.appendChild(div);
+    });
 }
+
+// 3. Handle the form submission to add a new password
+document.getElementById("addVaultForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Stop the page from reloading
+
+    // Get the values from the form inputs
+    const newSiteName = document.getElementById("siteName").value;
+    const newSiteUrl = document.getElementById("siteUrl").value;
+    const newUsername = document.getElementById("accountUsername").value;
+    // (Password is ignored for now, Nakiba's encryption logic will handle it later)
+
+    // Create a new object (simulating what will be sent to the database)
+    const newEntry = {
+        id: Date.now(), // Fake ID
+        siteName: newSiteName,
+        siteUrl: newSiteUrl,
+        accountUsername: newUsername
+    };
+
+    // Add to our mock array
+    mockVaultData.push(newEntry);
+    
+    // Re-render the list
+    renderVault();
+
+    // Clear the form
+    this.reset();
+    alert("Password saved successfully! (Mock)");
+});
+
+// 4. Handle deleting a password
+function deleteVaultItem(id) {
+    if (confirm("Are you sure you want to delete this password?")) {
+        // Filter out the item with the matching ID
+        mockVaultData = mockVaultData.filter(item => item.id !== id);
+        renderVault();
+    }
+}
+
+// 5. Initialize the vault when the page loads
+// (This ensures the list shows up when you click the Vault tab)
+window.addEventListener("DOMContentLoaded", renderVault);

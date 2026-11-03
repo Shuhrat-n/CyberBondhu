@@ -159,55 +159,43 @@
 
 
         <!-- PASSWORD VAULT PAGE -->
+                
         <section id="vault" class="page hidden">
 
             <h1>🔐 Password Vault</h1>
 
-            <p>
-                Your passwords deserve protection.
-            </p>
+            <p>Your passwords deserve protection. Keep them safe here.</p>
 
-            <div class="notice">
+            <!-- Add New Password Form -->
+            <div class="card" style="margin-bottom: 30px;">
+                <h2>Add a New Password</h2>
+                <form id="addVaultForm">
+                    <label for="siteName">Website Name (e.g., Facebook):</label>
+                    <input type="text" id="siteName" class="form-input" required>
 
-                <strong>Prototype notice</strong>
+                    <label for="siteUrl">Website URL:</label>
+                    <input type="url" id="siteUrl" class="form-input" required>
 
-                <p>
-                    This is a demonstration interface.
-                    It does not encrypt or securely store passwords yet.
-                    Do not enter any real passwords.
-                </p>
+                    <label for="accountUsername">Your Username/Email for this site:</label>
+                    <input type="text" id="accountUsername" class="form-input" required>
 
+                    <label for="accountPassword">Password:</label>
+                    <input type="password" id="accountPassword" class="form-input" required>
+
+                    <button type="submit" class="primary-button" style="margin-top: 20px;">Save Password</button>
+                </form>
             </div>
 
+            <!-- List of Saved Passwords -->
             <div class="card">
-
-                <h2>My Vault</h2>
-
-                <p>
-                    In the full version, you will be able to
-                    unlock your vault and manage saved accounts.
-                </p>
-
-                <button
-                    class="primary-button"
-                    onclick="showVaultInfo()">
-
-                    Learn About My Vault
-
-                </button>
-
-                <p id="vaultMessage" aria-live="polite"></p>
-
+                <h2>My Saved Passwords</h2>
+                <div id="vaultList">
+                    <!-- Data will be loaded here by JavaScript -->
+                    <p style="color: gray;">Loading your vault...</p>
+                </div>
             </div>
 
-            <button
-                class="secondary-button"
-                onclick="showPage('home')">
-
-                Back to Home
-
-            </button>
-
+            <button class="secondary-button" onclick="showPage('home')">Back to Home</button>
         </section>
 
     </main>
