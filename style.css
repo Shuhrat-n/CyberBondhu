@@ -20,7 +20,7 @@ body {
     background-color: #123b5d;
     color: white;
     text-align: center;
-    padding: 25px 15px;
+    padding: 15px 15px;
 }
 
 .logo {
@@ -41,7 +41,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
-    padding: 18px;
+    padding: 12px;
     background-color: #dceaf5;
 }
 
@@ -62,8 +62,8 @@ body {
 .container {
     width: 90%;
     max-width: 1100px;
-    margin: 35px auto;
-    min-height: 400px;
+    margin: 20px auto;
+    min-height: auto;
 }
 
 h1 {
@@ -76,8 +76,9 @@ h2 {
 }
 
 .intro {
-    font-size: 21px;
+    font-size: 19px;
     max-width: 850px;
+    margin-bottom: 15px;
 }
 
 
@@ -94,12 +95,13 @@ h2 {
     background-color: white;
     border: 1px solid #d3dfe9;
     border-radius: 12px;
-    padding: 25px;
+    padding: 20px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 .icon {
-    font-size: 45px;
+    font-size: 35px;
+    margin-bottom: 10px;
 }
 
 
@@ -206,8 +208,8 @@ button:focus-visible {
     text-align: center;
     background-color: #123b5d;
     color: white;
-    padding: 20px;
-    margin-top: 50px;
+    padding: 15px;
+    margin-top: 20px;
 }
 
 
@@ -278,4 +280,97 @@ button:focus-visible {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
+}
+
+.vault-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.view-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-btn {
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+/* --- Vault Split Layout --- */
+.vault-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 30px;
+    align-items: start; /* Prevents cards from stretching to the same height */
+    margin-top: 20px;
+}
+
+/* Make the form inputs slightly tighter to save space */
+.form-input {
+    padding: 10px; /* Reduced from 12px */
+    margin-bottom: 10px; /* Reduced from 15px */
+}
+
+label {
+    margin-top: 12px; /* Reduced from 20px */
+    margin-bottom: 5px;
+}
+
+/* --- List Item Styling --- */
+.vault-item {
+    display: flex;
+    flex-direction: column; /* Stack info and buttons vertically inside the item */
+    padding: 15px;
+    border: 1px solid #d3dfe9;
+    border-radius: 8px;
+    margin-bottom: 15px; /* Space between items */
+    background-color: #f9fbfd;
+}
+
+.vault-item:last-child {
+    margin-bottom: 0;
+}
+
+.vault-info {
+    margin-bottom: 10px;
+}
+
+.vault-info h3 {
+    margin: 0 0 5px 0;
+    color: #123b5d;
+    font-size: 20px;
+}
+
+.vault-info p {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+}
+
+.vault-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Push buttons to the right */
+}
+
+/* Add a visual separator for the hidden password */
+.password-hidden {
+    color: #a0aab5;
+    letter-spacing: 2px;
+}
+
+/* Responsive: Stack them on small screens */
+@media (max-width: 850px) {
+    .vault-layout {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
 }

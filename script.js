@@ -1,209 +1,176 @@
-// Switch between website pages
-
+// --- Page Navigation ---
 function showPage(pageId) {
-
-    const pages = document.querySelectorAll(".page");
-
-    pages.forEach(function(page) {
-        page.classList.add("hidden");
-    });
-
+    document.querySelectorAll(".page").forEach(page => page.classList.add("hidden"));
     const selectedPage = document.getElementById(pageId);
-
-    if (selectedPage) {
-        selectedPage.classList.remove("hidden");
-    }
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    if (selectedPage) selectedPage.classList.remove("hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+// --- Vault Logic ---
+const CURRENT_USER_ID = 1; 
+const API_BASE_URL = "http://localhost:8080/api/vault";
+const AUTH_URL = "http://localhost:8080/api/auth";
 
-// Basic suspicious-message demonstration
+let jwtToken = null;
+let currentVaultData = []; // Store data locally for View/Edit
 
-function checkMessage() {
-
-    const messageInput =
-        document.getElementById("messageInput");
-
-    const result =
-        document.getElementById("result");
-
-    const message = messageInput.value.trim();
-
-    result.className = "result";
-
-    if (message.length === 0) {
-
-        result.textContent =
-            "Please enter a message to check.";
-
-        result.classList.add("warning");
-
-        return;
-    }
-
-
-    const lowerMessage = message.toLowerCase();
-
-    const warnings = [];
-
-
-    // Rule 1: Urgent language
-
-    const urgentWords = [
-        "immediately",
-        "urgent",
-        "act now",
-        "account will be blocked",
-        "account suspended"
-    ];
-
-    if (urgentWords.some(word => lowerMessage.includes(word))) {
-
-        warnings.push(
-            "The message uses urgent language to pressure you."
-        );
-
-    }
-
-
-    // Rule 2: Requests for sensitive information
-
-    const sensitiveWords = [
-        "share your otp",
-        "send your otp",
-        "enter your password",
-        "verify your password",
-        "send your pin"
-    ];
-
-    if (sensitiveWords.some(word => lowerMessage.includes(word))) {
-
-        warnings.push(
-            "The message may be asking for sensitive information."
-        );
-
-    }
-
-
-    // Rule 3: Link included in the message
-
-    if (/https?:\/\/|www\./i.test(message)) {
-
-        warnings.push(
-            "The message contains a web link. Check the website address carefully."
-        );
-
-    }
-
-
-    // Display the results
-
-    if (warnings.length > 0) {
-
-        result.classList.add("warning");
-
-        result.textContent =
-            "⚠️ Possible warning signs found:\n\n" +
-            warnings.map((warning, index) =>
-                (index + 1) + ". " + warning
-            ).join("\n\n") +
-            "\n\nThis is not proof that the message is a scam. " +
-            "Do not share passwords or OTPs, and verify unexpected " +
-            "requests through an official channel.";
-
-    } else {
-
-        result.classList.add("safe");
-
-        result.textContent =
-            "No warning signs were detected by these basic rules. " +
-            "This does not mean the message is safe. " +
-            "Be careful with unexpected requests and unfamiliar links.";
-
-    }
-
+// 1. Auto Login
+function autoLogin() {
+    fetch(`${AUTH_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: "nakiba.demo@example.com", password: "Nakiba@Demo1" })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.token) {
+            jwtToken = data.token;
+            loadVaultEntries(); 
+        }
+    })
+    .catch(error => console.error("Login error:", error));
 }
 
-
-// Password vault information demonstration
-
-// 1. We use Mock Data for now
-let mockVaultData = [
-    { id: 1, siteName: "Facebook", siteUrl: "https://facebook.com", accountUsername: "nakiba@example.com" },
-    { id: 2, siteName: "Gmail", siteUrl: "https://mail.google.com", accountUsername: "nakiba.demo@gmail.com" }
-];
-
-// 2. Function to render (display) the passwords on the screen
-function renderVault() {
+// 2. READ (View List)
+function loadVaultEntries() {
     const vaultList = document.getElementById("vaultList");
-    
-    // Clear the "Loading..." text
-    vaultList.innerHTML = "";
+    vaultList.innerHTML = "<p>Loading your vault...</p>";
 
-    if (mockVaultData.length === 0) {
-        vaultList.innerHTML = "<p>No passwords saved yet.</p>";
-        return;
-    }
+    fetch(`${API_BASE_URL}/user/${CURRENT_USER_ID}`, {
+        headers: { "Authorization": `Bearer ${jwtToken}` }
+    })
+    .then(res => res.json())
+    .then(data => {
+        currentVaultData = data; // Save for later
+        vaultList.innerHTML = ""; 
+        
+        if (data.length === 0) {
+            vaultList.innerHTML = "<p>No passwords saved yet.</p>";
+            return;
+        }
 
-    // Loop through the data and create HTML for each item
-    mockVaultData.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "vault-item";
-        
-        div.innerHTML = `
-            <div class="vault-info">
-                <h3>${item.siteName}</h3>
-                <p>${item.accountUsername}</p>
-            </div>
-            <button class="delete-btn" onclick="deleteVaultItem(${item.id})">Delete</button>
-        `;
-        
-        vaultList.appendChild(div);
-    });
+        data.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "vault-item";
+            div.innerHTML = `
+                <div class="vault-info">
+                    <h3>${item.siteName}</h3>
+                    <p><strong>User:</strong> ${item.accountUsername}</p>
+                    <p><strong>Password:</strong> <span id="pass-${item.entryId}" style="display:none;">${item.encryptedPassword}</span></p>
+                </div>
+                <div class="vault-actions">
+                    <button class="view-btn" onclick="toggleView(${item.entryId})">Show</button>
+                    <button class="edit-btn" onclick="editVaultItem(${item.entryId})">Edit</button>
+                    <button class="delete-btn" onclick="deleteVaultItem(${item.entryId})">Delete</button>
+                </div>
+            `;
+            vaultList.appendChild(div);
+        });
+    })
+    .catch(error => console.error(error));
 }
 
-// 3. Handle the form submission to add a new password
-document.getElementById("addVaultForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Stop the page from reloading
+// 3. VIEW (Show/Hide Password)
+function toggleView(entryId) {
+    const passSpan = document.getElementById(`pass-${entryId}`);
+    const btn = event.target; // Get the button that was clicked
+    
+    if (passSpan.style.display === "none") {
+        passSpan.style.display = "inline";
+        btn.textContent = "Hide";
+    } else {
+        passSpan.style.display = "none";
+        btn.textContent = "Show";
+    }
+}
 
-    // Get the values from the form inputs
-    const newSiteName = document.getElementById("siteName").value;
-    const newSiteUrl = document.getElementById("siteUrl").value;
-    const newUsername = document.getElementById("accountUsername").value;
-    // (Password is ignored for now, Nakiba's encryption logic will handle it later)
+// 4. CREATE & UPDATE (Form Submit)
+document.getElementById("vaultForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-    // Create a new object (simulating what will be sent to the database)
+    const entryId = document.getElementById("entryId").value;
+    const isEditing = entryId !== "";
+
     const newEntry = {
-        id: Date.now(), // Fake ID
-        siteName: newSiteName,
-        siteUrl: newSiteUrl,
-        accountUsername: newUsername
+        userId: CURRENT_USER_ID,
+        siteName: document.getElementById("siteName").value,
+        siteUrl: document.getElementById("siteUrl").value,
+        accountUsername: document.getElementById("accountUsername").value,
+        encryptedPassword: "mock_encrypted_" + document.getElementById("accountPassword").value, 
+        iv: "mock_iv_123"
     };
 
-    // Add to our mock array
-    mockVaultData.push(newEntry);
-    
-    // Re-render the list
-    renderVault();
+    const url = isEditing ? `${API_BASE_URL}/${entryId}` : API_BASE_URL;
+    const method = isEditing ? "PUT" : "POST";
 
-    // Clear the form
-    this.reset();
-    alert("Password saved successfully! (Mock)");
+    fetch(url, {
+        method: method,
+        headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${jwtToken}` 
+        },
+        body: JSON.stringify(newEntry)
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Failed to save");
+        return res.json();
+    })
+    .then(data => {
+        alert(isEditing ? "Password updated!" : "Password saved!");
+        resetForm();
+        loadVaultEntries(); 
+    })
+    .catch(error => alert("Error saving password."));
 });
 
-// 4. Handle deleting a password
-function deleteVaultItem(id) {
-    if (confirm("Are you sure you want to delete this password?")) {
-        // Filter out the item with the matching ID
-        mockVaultData = mockVaultData.filter(item => item.id !== id);
-        renderVault();
-    }
+// 5. EDIT (Populate form)
+function editVaultItem(entryId) {
+    // Find the item in our local data
+    const item = currentVaultData.find(i => i.entryId === entryId);
+    if (!item) return;
+
+    // Change form UI
+    document.getElementById("formTitle").textContent = "Edit Password";
+    document.getElementById("submitBtn").textContent = "Update Password";
+    document.getElementById("cancelBtn").style.display = "inline-block";
+
+    // Fill form with data
+    document.getElementById("entryId").value = item.entryId;
+    document.getElementById("siteName").value = item.siteName;
+    document.getElementById("siteUrl").value = item.siteUrl;
+    document.getElementById("accountUsername").value = item.accountUsername;
+    
+    // Un-hide the password (removing "mock_encrypted_" prefix for display)
+    const realPass = item.encryptedPassword.replace("mock_encrypted_", "");
+    document.getElementById("accountPassword").value = realPass;
+
+    // Scroll to form
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// 5. Initialize the vault when the page loads
-// (This ensures the list shows up when you click the Vault tab)
-window.addEventListener("DOMContentLoaded", renderVault);
+// 6. Reset Form
+function resetForm() {
+    document.getElementById("vaultForm").reset();
+    document.getElementById("entryId").value = "";
+    document.getElementById("formTitle").textContent = "Add a New Password";
+    document.getElementById("submitBtn").textContent = "Save Password";
+    document.getElementById("cancelBtn").style.display = "none";
+}
+
+// 7. DELETE
+function deleteVaultItem(entryId) {
+    if (!confirm("Are you sure you want to delete this password?")) return;
+
+    fetch(`${API_BASE_URL}/${entryId}?userId=${CURRENT_USER_ID}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${jwtToken}` }
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Failed to delete");
+        loadVaultEntries(); 
+    })
+    .catch(error => alert("Error deleting password."));
+}
+
+// 8. Initialize
+window.addEventListener("DOMContentLoaded", autoLogin);
