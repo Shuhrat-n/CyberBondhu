@@ -172,5 +172,42 @@ function deleteVaultItem(entryId) {
     .catch(error => alert("Error deleting password."));
 }
 
+
+
+
 // 8. Initialize
 window.addEventListener("DOMContentLoaded", autoLogin);
+
+// encryption
+
+async function testEncryption() {
+
+    // master password
+    const masterPassword = "MyStrongMasterPassword123!";
+
+    const passwordInfo = {
+        website: "Example.com",
+        username: "elderly_user",
+        password: "MyExamplePassword123"
+    };
+
+    // Encrypt the information
+    const encrypted = await encryptData(
+        passwordInfo,
+        masterPassword
+    );
+
+    console.log("Encrypted data:", encrypted);
+
+    // Decrypt the information
+    const decrypted = await decryptData(
+        encrypted,
+        masterPassword
+        // wrongpassword
+    );
+
+    console.log("Decrypted data:", decrypted);
+}
+
+testEncryption();
+
