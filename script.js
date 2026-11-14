@@ -10,9 +10,10 @@ function showPage(pageId) {
 const CURRENT_USER_ID = 1; 
 const API_BASE_URL = "http://localhost:8080/api/vault";
 const AUTH_URL = "http://localhost:8080/api/auth";
+const MASTER_PASSWORD = "MyStrongMasterPassword123!"; // The key to encrypt/decrypt
 
 let jwtToken = null;
-let currentVaultData = []; // Store data locally for View/Edit
+let currentVaultData = []; 
 
 // 1. Auto Login
 function autoLogin() {
@@ -41,7 +42,7 @@ function loadVaultEntries() {
     })
     .then(res => res.json())
     .then(data => {
-        currentVaultData = data; // Save for later
+        currentVaultData = data; 
         vaultList.innerHTML = ""; 
         
         if (data.length === 0) {
@@ -56,7 +57,7 @@ function loadVaultEntries() {
                 <div class="vault-info">
                     <h3>${item.siteName}</h3>
                     <p><strong>User:</strong> ${item.accountUsername}</p>
-                    <p><strong>Password:</strong> <span id="pass-${item.entryId}" style="display:none;">${item.encryptedPassword}</span></p>
+                    <p><strong>Password:</strong> <span id="pass-${item.entryId}" class="password-hidden">••••••••</span></p>
                 </div>
                 <div class="vault-actions">
                     <button class="view-btn" onclick="toggleView(${item.entryId})">Show</button>
@@ -70,34 +71,91 @@ function loadVaultEntries() {
     .catch(error => console.error(error));
 }
 
-// 3. VIEW (Show/Hide Password)
-function toggleView(entryId) {
+// 3. VIEW (Decrypt Password using encryption.js, Prompt for Master Password, then Decrypt)
+async function toggleView(entryId) {
     const passSpan = document.getElementById(`pass-${entryId}`);
-    const btn = event.target; // Get the button that was clicked
+    const btn = event.target;
     
-    if (passSpan.style.display === "none") {
-        passSpan.style.display = "inline";
-        btn.textContent = "Hide";
+    // If it is currently hidden, we need to decrypt it
+    if (passSpan.classList.contains("password-hidden")) {
+        const item = currentVaultData.find(i => i.entryId === entryId);
+        if (!item) return;
+
+        // --- ASK FOR MASTER PASSWORD ---
+        const userMasterPassword = prompt("Please enter your Master Password to unlock this:");
+        
+        if (!userMasterPassword) return; // User clicked Cancel
+
+        try {
+            
+            // Split the salt and ciphertext
+            const [saltBase64, ciphertextBase64] = item.encryptedPassword.split(":");
+            
+            if (!saltBase64 || !ciphertextBase64) {
+                passSpan.textContent = item.encryptedPassword;
+            } else {
+                const encryptedObj = {
+                    salt: saltBase64,
+                    iv: item.iv,
+                    ciphertext: ciphertextBase64
+                };
+                
+                // Use decryptData with the password the USER just typed
+                const decryptedObj = await decryptData(encryptedObj, userMasterPassword);
+                
+                // Show the decrypted password
+                passSpan.textContent = decryptedObj.password;
+            }
+            
+            passSpan.classList.remove("password-hidden");
+            btn.textContent = "Hide";
+            
+        } catch (error) {
+            console.error("Decryption failed:", error);
+            alert("Incorrect Master Password! Please try again.");
+        }
     } else {
-        passSpan.style.display = "none";
+        // Hide it again
+        passSpan.textContent = "••••••••";
+        passSpan.classList.add("password-hidden");
         btn.textContent = "Show";
     }
 }
 
-// 4. CREATE & UPDATE (Form Submit)
-document.getElementById("vaultForm").addEventListener("submit", function(event) {
+// 4. CREATE & UPDATE (Encrypt Password)
+document.getElementById("vaultForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
     const entryId = document.getElementById("entryId").value;
     const isEditing = entryId !== "";
+    const rawPassword = document.getElementById("accountPassword").value;
+
+    let encryptedPayload;
+    
+    try {
+        // Use encryptData function
+        // We pack the real password into a JSON object
+        const dataToEncrypt = { password: rawPassword };
+        encryptedPayload = await encryptData(dataToEncrypt, MASTER_PASSWORD);
+        
+        // Validate that encryption worked
+        if (!encryptedPayload.ciphertext) throw new Error("Encryption failed");
+        
+    } catch (error) {
+        alert("Failed to encrypt password: " + error.message);
+        return;
+    }
+
+    // Combine salt and ciphertext into one string for the DB
+    const combinedEncryptedPassword = `${encryptedPayload.salt}:${encryptedPayload.ciphertext}`;
 
     const newEntry = {
         userId: CURRENT_USER_ID,
         siteName: document.getElementById("siteName").value,
         siteUrl: document.getElementById("siteUrl").value,
         accountUsername: document.getElementById("accountUsername").value,
-        encryptedPassword: "mock_encrypted_" + document.getElementById("accountPassword").value, 
-        iv: "mock_iv_123"
+        encryptedPassword: combinedEncryptedPassword, // Storing salt:ciphertext
+        iv: encryptedPayload.iv
     };
 
     const url = isEditing ? `${API_BASE_URL}/${entryId}` : API_BASE_URL;
@@ -116,35 +174,32 @@ document.getElementById("vaultForm").addEventListener("submit", function(event) 
         return res.json();
     })
     .then(data => {
-        alert(isEditing ? "Password updated!" : "Password saved!");
+        alert(isEditing ? "Password updated and re-encrypted!" : "Password encrypted and saved!");
         resetForm();
         loadVaultEntries(); 
     })
     .catch(error => alert("Error saving password."));
 });
 
-// 5. EDIT (Populate form)
+// 5. EDIT (We don't decrypt immediately, just load the site info)
 function editVaultItem(entryId) {
-    // Find the item in our local data
     const item = currentVaultData.find(i => i.entryId === entryId);
     if (!item) return;
 
-    // Change form UI
     document.getElementById("formTitle").textContent = "Edit Password";
     document.getElementById("submitBtn").textContent = "Update Password";
     document.getElementById("cancelBtn").style.display = "inline-block";
 
-    // Fill form with data
     document.getElementById("entryId").value = item.entryId;
     document.getElementById("siteName").value = item.siteName;
     document.getElementById("siteUrl").value = item.siteUrl;
     document.getElementById("accountUsername").value = item.accountUsername;
     
-    // Un-hide the password (removing "mock_encrypted_" prefix for display)
-    const realPass = item.encryptedPassword.replace("mock_encrypted_", "");
-    document.getElementById("accountPassword").value = realPass;
+    // We leave the password field BLANK for security. 
+    // The user must type a new password if they want to change it.
+    document.getElementById("accountPassword").value = "";
+    document.getElementById("accountPassword").placeholder = "Enter a new password (or leave blank to keep current)";
 
-    // Scroll to form
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -155,6 +210,7 @@ function resetForm() {
     document.getElementById("formTitle").textContent = "Add a New Password";
     document.getElementById("submitBtn").textContent = "Save Password";
     document.getElementById("cancelBtn").style.display = "none";
+    document.getElementById("accountPassword").placeholder = "";
 }
 
 // 7. DELETE
@@ -172,42 +228,15 @@ function deleteVaultItem(entryId) {
     .catch(error => alert("Error deleting password."));
 }
 
-
-
-
 // 8. Initialize
 window.addEventListener("DOMContentLoaded", autoLogin);
 
-// encryption
-
+// TEST ENCRYPTION 
 async function testEncryption() {
-
-    // master password
     const masterPassword = "MyStrongMasterPassword123!";
-
-    const passwordInfo = {
-        website: "Example.com",
-        username: "elderly_user",
-        password: "MyExamplePassword123"
-    };
-
-    // Encrypt the information
-    const encrypted = await encryptData(
-        passwordInfo,
-        masterPassword
-    );
-
+    const passwordInfo = { website: "Example.com", username: "elderly_user", password: "MyExamplePassword123" };
+    const encrypted = await encryptData(passwordInfo, masterPassword);
     console.log("Encrypted data:", encrypted);
-
-    // Decrypt the information
-    const decrypted = await decryptData(
-        encrypted,
-        masterPassword
-        // wrongpassword
-    );
-
+    const decrypted = await decryptData(encrypted, masterPassword);
     console.log("Decrypted data:", decrypted);
 }
-
-testEncryption();
-
