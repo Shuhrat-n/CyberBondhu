@@ -1,3 +1,4 @@
+
 package com.cyberbondhu.demo.vault;
 
 import jakarta.persistence.*;
@@ -27,10 +28,16 @@ public class VaultEntry {
     @Column(name = "account_username", nullable = false)
     private String accountUsername;
 
-    // AES-encrypted in the browser; the server never sees the plain password
+    // AES-GCM ciphertext generated in the browser
     @Column(name = "encrypted_password", nullable = false, columnDefinition = "TEXT")
     private String encryptedPassword;
 
+    // Random salt used by PBKDF2
+    // Nullable temporarily for compatibility with existing records
+    @Column(name = "salt", length = 64)
+    private String salt;
+
+    // AES-GCM initialization vector
     @Column(name = "iv", nullable = false, length = 32)
     private String iv;
 
@@ -42,19 +49,71 @@ public class VaultEntry {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public Integer getEntryId() { return entryId; }
-    public Integer getUserId() { return userId; }
-    public void setUserId(Integer userId) { this.userId = userId; }
-    public String getSiteName() { return siteName; }
-    public void setSiteName(String siteName) { this.siteName = siteName; }
-    public String getSiteUrl() { return siteUrl; }
-    public void setSiteUrl(String siteUrl) { this.siteUrl = siteUrl; }
-    public String getAccountUsername() { return accountUsername; }
-    public void setAccountUsername(String accountUsername) { this.accountUsername = accountUsername; }
-    public String getEncryptedPassword() { return encryptedPassword; }
-    public void setEncryptedPassword(String encryptedPassword) { this.encryptedPassword = encryptedPassword; }
-    public String getIv() { return iv; }
-    public void setIv(String iv) { this.iv = iv; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public Integer getEntryId() {
+        return entryId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
+    }
+
+    public String getSiteUrl() {
+        return siteUrl;
+    }
+
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
+    }
+
+    public String getAccountUsername() {
+        return accountUsername;
+    }
+
+    public void setAccountUsername(String accountUsername) {
+        this.accountUsername = accountUsername;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getIv() {
+        return iv;
+    }
+
+    public void setIv(String iv) {
+        this.iv = iv;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
 }
