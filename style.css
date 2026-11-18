@@ -1,4 +1,7 @@
-/* General page styling */
+
+/* ==========================================
+   CYBERBONDHU - GENERAL STYLING
+========================================== */
 
 * {
     box-sizing: border-box;
@@ -7,41 +10,51 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 19px;
     line-height: 1.7;
     background-color: #f3f7fb;
     color: #243447;
 }
 
+button,
+input,
+textarea {
+    font-family: inherit;
+}
 
-/* Header */
+
+/* ==========================================
+   HEADER
+========================================== */
 
 .header {
     background-color: #123b5d;
     color: white;
     text-align: center;
-    padding: 15px 15px;
+    padding: 20px 15px;
 }
 
 .logo {
-    font-size: 36px;
+    font-size: 38px;
     font-weight: bold;
 }
 
 .header p {
-    margin-bottom: 0;
-    font-size: 20px;
+    margin: 5px 0 0;
+    font-size: 21px;
 }
 
 
-/* Navigation */
+/* ==========================================
+   NAVIGATION
+========================================== */
 
 .navigation {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 12px;
-    padding: 12px;
+    gap: 14px;
+    padding: 15px;
     background-color: #dceaf5;
 }
 
@@ -49,40 +62,56 @@ body {
     background-color: white;
     color: #123b5d;
     border: 2px solid #123b5d;
-    padding: 12px 22px;
-    font-size: 18px;
+    padding: 13px 24px;
+    font-size: 19px;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
 }
 
+.navigation button:hover {
+    background-color: #123b5d;
+    color: white;
+}
 
-/* Main content */
+
+/* ==========================================
+   MAIN CONTENT
+========================================== */
 
 .container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 20px auto;
-    min-height: auto;
+    width: 92%;
+    max-width: 1150px;
+    margin: 25px auto;
+    min-height: 60vh;
 }
 
 h1 {
-    font-size: 34px;
+    font-size: 36px;
+    line-height: 1.3;
     color: #123b5d;
 }
 
 h2 {
-    font-size: 25px;
+    font-size: 26px;
+    line-height: 1.4;
+    color: #123b5d;
+}
+
+p {
+    margin-top: 8px;
 }
 
 .intro {
-    font-size: 19px;
-    max-width: 850px;
-    margin-bottom: 15px;
+    font-size: 20px;
+    max-width: 900px;
+    margin-bottom: 20px;
 }
 
 
-/* Cards */
+/* ==========================================
+   CARDS
+========================================== */
 
 .card-container {
     display: grid;
@@ -95,28 +124,35 @@ h2 {
     background-color: white;
     border: 1px solid #d3dfe9;
     border-radius: 12px;
-    padding: 20px;
+    padding: 24px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 .icon {
-    font-size: 35px;
+    font-size: 38px;
     margin-bottom: 10px;
 }
 
 
-/* Buttons */
+/* ==========================================
+   BUTTONS
+========================================== */
 
 .primary-button {
+    display: inline-block;
     background-color: #176b50;
     color: white;
-    border: none;
+    border: 2px solid #176b50;
     border-radius: 8px;
     padding: 14px 22px;
     margin-top: 12px;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.primary-button:hover {
+    background-color: #10513c;
 }
 
 .secondary-button {
@@ -124,56 +160,119 @@ h2 {
     color: #123b5d;
     border: 2px solid #123b5d;
     border-radius: 8px;
-    padding: 12px 20px;
+    padding: 13px 21px;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 19px;
+    font-weight: bold;
     cursor: pointer;
 }
 
+.secondary-button:hover {
+    background-color: #e6eff7;
+}
 
-/* Form */
+
+/* ==========================================
+   FORMS AND INPUTS
+========================================== */
 
 label {
     display: block;
-    margin-top: 20px;
+    margin-top: 18px;
     margin-bottom: 8px;
     font-weight: bold;
+    font-size: 19px;
 }
 
-textarea {
+textarea,
+.form-input {
     width: 100%;
     padding: 15px;
     border: 2px solid #879bb0;
     border-radius: 8px;
-    font-size: 18px;
+    font-size: 19px;
     font-family: inherit;
-    resize: vertical;
-    margin-bottom: 12px;
+    background-color: white;
+    color: #243447;
 }
 
-textarea:focus,
-button:focus-visible {
-    outline: 3px solid #e6a23c;
+textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.form-input {
+    margin-bottom: 12px;
+    min-height: 50px;
+}
+
+textarea::placeholder,
+input::placeholder {
+    color: #68798a;
+    opacity: 1;
+}
+
+
+/* ==========================================
+   KEYBOARD ACCESSIBILITY
+========================================== */
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 4px solid #e6a23c;
     outline-offset: 3px;
 }
 
 
-/* Results */
+/* ==========================================
+   SCAM CHECKER LAYOUT
+========================================== */
+
+.scam-card {
+    max-width: 850px;
+    margin-top: 20px;
+}
+
+.scam-card textarea {
+    min-height: 190px;
+    line-height: 1.7;
+}
+
+.help-text {
+    color: #526477;
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+}
+
+
+/* ==========================================
+   SCAM CHECKER RESULTS
+========================================== */
 
 .result {
-    margin-top: 20px;
+    margin-top: 22px;
     padding: 20px;
-    border-radius: 8px;
-    white-space: pre-line;
+    border-radius: 10px;
+    white-space: normal;
 }
 
 .result:empty {
     display: none;
 }
 
+.result h2 {
+    margin-top: 0;
+}
+
 .result.warning {
     background-color: #fff0d5;
     border: 2px solid #a45b00;
+    color: #633600;
+}
+
+.result.warning h2 {
     color: #633600;
 }
 
@@ -183,194 +282,190 @@ button:focus-visible {
     color: #14533e;
 }
 
+.result.safe h2 {
+    color: #14533e;
+}
 
-/* Notice */
+.result li {
+    margin-bottom: 8px;
+}
+
+
+/* ==========================================
+   IMPORTANT NOTICE
+========================================== */
 
 .notice {
     background-color: #fff0d5;
     border-left: 6px solid #a45b00;
-    padding: 18px;
+    padding: 18px 20px;
     margin: 25px 0;
     border-radius: 6px;
 }
 
 
-/* Page navigation */
+/* ==========================================
+   PAGE NAVIGATION
+========================================== */
 
 .hidden {
     display: none;
 }
 
 
-/* Footer */
+/* ==========================================
+   PASSWORD VAULT
+========================================== */
+
+.vault-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.vault-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 17px;
+    border: 1px solid #d3dfe9;
+    border-radius: 9px;
+    margin-bottom: 15px;
+    background-color: #f9fbfd;
+}
+
+.vault-info h3 {
+    margin: 0 0 8px;
+    color: #123b5d;
+    font-size: 21px;
+}
+
+.vault-info p {
+    margin: 5px 0;
+    font-size: 17px;
+    overflow-wrap: anywhere;
+}
+
+.password-hidden {
+    color: #68798a;
+    letter-spacing: 2px;
+}
+
+.vault-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn {
+    min-height: 42px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.view-btn {
+    background-color: #176b9b;
+}
+
+.edit-btn {
+    background-color: #a76a00;
+}
+
+.delete-btn {
+    background-color: #b83232;
+}
+
+.view-btn:hover {
+    background-color: #105477;
+}
+
+.edit-btn:hover {
+    background-color: #805000;
+}
+
+.delete-btn:hover {
+    background-color: #922424;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
 
 .footer {
     text-align: center;
     background-color: #123b5d;
     color: white;
-    padding: 15px;
-    margin-top: 20px;
+    padding: 18px;
+    margin-top: 30px;
+}
+
+.footer p {
+    margin: 5px;
 }
 
 
-/* Mobile-friendly layout */
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
 
     .card-container {
         grid-template-columns: 1fr;
     }
 
-    h1 {
-        font-size: 29px;
-    }
-
-    .logo {
-        font-size: 30px;
-    }
-
-    .navigation button {
-        width: 100%;
+    .vault-layout {
+        grid-template-columns: 1fr;
     }
 
     .container {
-        width: 92%;
+        width: 94%;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    .logo {
+        font-size: 32px;
+    }
+
+    .navigation button {
+        flex: 1 1 100%;
     }
 }
 
-/* Vault Form Inputs */
-.form-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #879bb0;
-    border-radius: 8px;
-    font-size: 18px;
-    margin-bottom: 15px;
-}
+@media (max-width: 480px) {
 
-/* Vault List Items */
-.vault-item {
-    border-bottom: 1px solid #d3dfe9;
-    padding: 15px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    body {
+        font-size: 18px;
+    }
 
-.vault-item:last-child {
-    border-bottom: none;
-}
+    .container {
+        width: 94%;
+    }
 
-.vault-info h3 {
-    margin: 0 0 5px 0;
-    color: #123b5d;
-}
+    .card {
+        padding: 18px;
+    }
 
-.vault-info p {
-    margin: 0;
-    font-size: 16px;
-    color: #666;
-}
+    .vault-actions button {
+        flex: 1 1 auto;
+    }
 
-.delete-btn {
-    background-color: #d9534f;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.vault-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.view-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.edit-btn {
-    background-color: #f0ad4e;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-/* --- Vault Split Layout --- */
-.vault-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal columns */
-    gap: 30px;
-    align-items: start; /* Prevents cards from stretching to the same height */
-    margin-top: 20px;
-}
-
-/* Make the form inputs slightly tighter to save space */
-.form-input {
-    padding: 10px; /* Reduced from 12px */
-    margin-bottom: 10px; /* Reduced from 15px */
-}
-
-label {
-    margin-top: 12px; /* Reduced from 20px */
-    margin-bottom: 5px;
-}
-
-/* --- List Item Styling --- */
-.vault-item {
-    display: flex;
-    flex-direction: column; /* Stack info and buttons vertically inside the item */
-    padding: 15px;
-    border: 1px solid #d3dfe9;
-    border-radius: 8px;
-    margin-bottom: 15px; /* Space between items */
-    background-color: #f9fbfd;
-}
-
-.vault-item:last-child {
-    margin-bottom: 0;
-}
-
-.vault-info {
-    margin-bottom: 10px;
-}
-
-.vault-info h3 {
-    margin: 0 0 5px 0;
-    color: #123b5d;
-    font-size: 20px;
-}
-
-.vault-info p {
-    margin: 0 0 5px 0;
-    font-size: 16px;
-}
-
-.vault-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end; /* Push buttons to the right */
-}
-
-/* Add a visual separator for the hidden password */
-.password-hidden {
-    color: #a0aab5;
-    letter-spacing: 2px;
-}
-
-/* Responsive: Stack them on small screens */
-@media (max-width: 850px) {
-    .vault-layout {
-        grid-template-columns: 1fr; /* 1 column on mobile */
+    .primary-button,
+    .secondary-button {
+        width: 100%;
     }
 }

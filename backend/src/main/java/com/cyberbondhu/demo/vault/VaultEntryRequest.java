@@ -1,3 +1,4 @@
+
 package com.cyberbondhu.demo.vault;
 
 public record VaultEntryRequest(
@@ -6,5 +7,6 @@ public record VaultEntryRequest(
         String siteUrl,
         String accountUsername,
         String encryptedPassword,
+        String salt,
         String iv) {
 }

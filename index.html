@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,28 +13,25 @@
 
 <body>
 
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="header">
-        <div class="logo">
-            🛡️ CyberBondhu
-        </div>
-
+        <div class="logo">🛡️ CyberBondhu</div>
         <p>Your friendly online safety assistant</p>
     </header>
 
 
-    <!-- Navigation -->
+    <!-- NAVIGATION -->
     <nav class="navigation" aria-label="Main navigation">
 
-        <button onclick="showPage('home')">
+        <button type="button" onclick="showPage('home')">
             Home
         </button>
 
-        <button onclick="showPage('scam')">
+        <button type="button" onclick="showPage('scam')">
             Scam Checker
         </button>
 
-        <button onclick="showPage('vault')">
+        <button type="button" onclick="showPage('vault')">
             Password Vault
         </button>
 
@@ -47,62 +46,76 @@
             <h1>Welcome to CyberBondhu!</h1>
 
             <p class="intro">
-                Your trusted companion for staying safer online.
-                We are here to help you recognize suspicious messages
-                and understand online security.
+                Your friendly companion for staying safer online.
+                We help you recognize suspicious messages and
+                understand how to protect your online accounts.
             </p>
+
+            <div class="notice">
+                <strong>Remember:</strong>
+                Never share your password, PIN or OTP with someone
+                who contacts you unexpectedly.
+            </div>
 
             <div class="card-container">
 
                 <article class="card">
+
                     <div class="icon">🔍</div>
 
                     <h2>Check a Message</h2>
 
                     <p>
-                        Unsure about a message or link?
-                        Check it for possible warning signs.
+                        Received a strange message?
+                        Look for common warning signs before responding.
                     </p>
 
                     <button
+                        type="button"
                         class="primary-button"
                         onclick="showPage('scam')">
 
-                        Check Message
+                        Check a Message
 
                     </button>
+
                 </article>
 
 
                 <article class="card">
+
                     <div class="icon">🔐</div>
 
                     <h2>Password Vault</h2>
 
                     <p>
-                        Learn about keeping your account
-                        passwords organized and protected.
+                        Save and organize your password information
+                        using browser-based encryption.
                     </p>
 
                     <button
+                        type="button"
                         class="primary-button"
                         onclick="showPage('vault')">
 
-                        Open Vault
+                        Open Password Vault
 
                     </button>
+
                 </article>
 
 
                 <article class="card">
+
                     <div class="icon">💡</div>
 
                     <h2>Online Safety Tip</h2>
 
                     <p>
-                        Never share your password or OTP
-                        with someone who contacts you unexpectedly.
+                        If someone asks for your OTP or password,
+                        stop and verify their identity first.
                     </p>
+
                 </article>
 
             </div>
@@ -111,43 +124,63 @@
 
 
         <!-- SCAM CHECKER PAGE -->
-        <section id="scam" class="page hidden">
+        <section id="scam" class="page">
 
             <h1>🔍 Scam Message Checker</h1>
 
-            <p>
-                Paste a suspicious message below to look
-                for some common warning signs.
+            <p class="intro">
+                Not sure whether a message is genuine?
+                Paste the message below to check for common
+                warning signs.
             </p>
 
-            <label for="messageInput">
-                Enter your message:
-            </label>
+            <div class="card scam-card">
 
-            <textarea
-                id="messageInput"
-                placeholder="Example: Your account will be blocked.
-                Click this link immediately to verify your account."
-                rows="6">
-            </textarea>
+                <label for="messageInput">
+                    Paste the message you received:
+                </label>
 
-            <button
-                class="primary-button"
-                onclick="checkMessage()">
+                <textarea
+                    id="messageInput"
+                    placeholder="Example: Your bank account will be blocked. Click this link immediately and enter your OTP to verify your account."
+                    rows="7"
+                    aria-describedby="scamHelp">
+                </textarea>
 
-                Check Message
+                <p id="scamHelp" class="help-text">
+                    You can paste the complete message here.
+                    Do not share your own passwords or OTPs.
+                </p>
 
-            </button>
+                <button
+                    type="button"
+                    class="primary-button"
+                    onclick="checkMessage()">
 
-            <div
-                id="result"
-                class="result"
-                aria-live="polite"
-                role="status">
+                    Check for Warning Signs
+
+                </button>
+
+                <div
+                    id="result"
+                    class="result"
+                    role="status"
+                    aria-live="polite">
+                </div>
 
             </div>
 
+            <div class="notice">
+                <strong>Important safety reminder:</strong>
+                This checker looks for common suspicious words and
+                phrases. It cannot identify every scam. A message
+                without warning signs is not guaranteed to be safe.
+                Always verify unexpected messages through official
+                contact information.
+            </div>
+
             <button
+                type="button"
                 class="secondary-button"
                 onclick="showPage('home')">
 
@@ -159,68 +192,160 @@
 
 
         <!-- PASSWORD VAULT PAGE -->
-        <section id="vault" class="page hidden">
+        <section id="vault" class="page">
 
             <h1>🔐 Password Vault</h1>
-            <p>Your passwords deserve protection. Keep them safe here.</p>
 
-            <!-- Split Layout Container -->
+            <p class="intro">
+                Keep your saved password information organized.
+                Your password is encrypted in your browser before
+                it is sent to the server.
+            </p>
+
+            <div class="notice">
+                <strong>Important:</strong>
+                Remember your Master Password. It is used to
+                encrypt and unlock your saved passwords.
+                Do not share it with anyone.
+            </div>
+
+
             <div class="vault-layout">
 
-                <!-- Left Side: Add/Edit Form -->
+                <!-- ADD / EDIT FORM -->
                 <div class="card">
+
                     <h2 id="formTitle">Add a New Password</h2>
+
                     <form id="vaultForm">
-                        <input type="hidden" id="entryId" value="">
 
-                        <label for="siteName">Website Name:</label>
-                        <input type="text" id="siteName" class="form-input" required>
+                        <input
+                            type="hidden"
+                            id="entryId"
+                            value="">
 
-                        <label for="siteUrl">Website URL:</label>
-                        <input type="url" id="siteUrl" class="form-input" required>
+                        <label for="siteName">
+                            Website or App Name:
+                        </label>
 
-                        <label for="accountUsername">Username/Email:</label>
-                        <input type="text" id="accountUsername" class="form-input" required>
+                        <input
+                            type="text"
+                            id="siteName"
+                            class="form-input"
+                            maxlength="100"
+                            required>
 
-                        <label for="accountPassword">Password:</label>
-                        <input type="password" id="accountPassword" class="form-input" required>
+                        <label for="siteUrl">
+                            Website Address:
+                        </label>
 
-                        <button type="submit" class="primary-button" id="submitBtn" style="width: 100%;">Save Password</button>
-                        <button type="button" class="secondary-button" id="cancelBtn" style="width: 100%; display: none; margin-top: 10px;" onclick="resetForm()">Cancel Edit</button>
+                        <input
+                            type="url"
+                            id="siteUrl"
+                            class="form-input"
+                            maxlength="500"
+                            placeholder="https://example.com"
+                            required>
+
+                        <label for="accountUsername">
+                            Username or Email:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="accountUsername"
+                            class="form-input"
+                            required>
+
+                        <label for="accountPassword">
+                            Account Password:
+                        </label>
+
+                        <input
+                            type="password"
+                            id="accountPassword"
+                            class="form-input"
+                            autocomplete="new-password"
+                            required>
+
+                        <p class="help-text">
+                            When editing an entry, leave this field
+                            blank if you want to keep the existing
+                            password.
+                        </p>
+
+                        <button
+                            type="submit"
+                            class="primary-button"
+                            id="submitBtn">
+
+                            Save Password
+
+                        </button>
+
+                        <button
+                            type="button"
+                            class="secondary-button"
+                            id="cancelBtn"
+                            style="display: none;"
+                            onclick="resetForm()">
+
+                            Cancel Editing
+
+                        </button>
+
                     </form>
+
                 </div>
 
-                <!-- Right Side: Saved Passwords List -->
+
+                <!-- SAVED PASSWORDS -->
                 <div class="card">
+
                     <h2>My Saved Passwords</h2>
-                    <div id="vaultList">
-                        <p style="color: gray;">Loading your vault...</p>
+
+                    <p class="help-text">
+                        Select Show Password to unlock an entry.
+                        Your Master Password will be requested.
+                    </p>
+
+                    <div id="vaultList" aria-live="polite">
+                        <p>Connecting to your Password Vault...</p>
                     </div>
+
                 </div>
 
             </div>
 
-            <button class="secondary-button" onclick="showPage('home')" style="margin-top: 20px;">Back to Home</button>
+
+            <button
+                type="button"
+                class="secondary-button"
+                onclick="showPage('home')">
+
+                Back to Home
+
+            </button>
+
         </section>
 
     </main>
 
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
 
-        <p>
-            CyberBondhu © 2026
-        </p>
+        <p>CyberBondhu © 2026</p>
 
-        <p>
-            Stay alert. Stay safe. Stay connected.
-        </p>
+        <p>Stay alert. Stay safe. Stay connected.</p>
 
     </footer>
 
+
+    <!-- JAVASCRIPT -->
     <script src="encryption.js"></script>
     <script src="script.js"></script>
 
 </body>
+
 </html>
