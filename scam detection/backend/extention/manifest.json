@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "CyberBondhu Assistant",
+  "version": "1.0",
+  "description": "Elderly-friendly cybersecurity assistant providing explainable warnings.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "webNavigation"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["warning.css"],
+      "js": ["content.js"]
+    }
+  ],
+  "host_permissions": [
+    "http://localhost:8080/*" 
+  ]
+}

@@ -1,0 +1,85 @@
+#cyberbondhu-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+.cb-warning-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    max-width: 600px;
+    text-align: center;
+    border-top: 10px solid #D32F2F; /* Red for warning */
+}
+
+.cb-title {
+    font-size: 32px;
+    color: #D32F2F;
+    margin-bottom: 10px;
+}
+
+.cb-subtitle {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.cb-explanation-container {
+    background: #FFF3F3;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.cb-explanation-container h3 {
+    font-size: 20px;
+    color: #D32F2F;
+}
+
+.cb-reason {
+    margin-bottom: 15px;
+    font-size: 18px; /* Large text for readability */
+    line-height: 1.5;
+    border-left: 4px solid #D32F2F;
+    padding-left: 10px;
+}
+
+.cb-trigger {
+    font-size: 16px;
+    color: #666;
+    margin-top: 20px;
+}
+
+.cb-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cb-btn {
+    padding: 15px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cb-safe {
+    background-color: #2E7D32; /* Trust-building Green */
+    color: white;
+}
+
+.cb-danger {
+    background-color: transparent;
+    color: #666;
+    text-decoration: underline;
+    font-size: 16px;
+}
