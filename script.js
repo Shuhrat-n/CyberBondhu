@@ -518,14 +518,12 @@ async function deleteVaultItem(entryId) {
 }
 
 
-// ============================================
-// SCAM MESSAGE CHECKER
-// ============================================
 
-function checkMessage() {
+// SCAM MESSAGE CHECKER 
+
+async function checkMessage() {
     const messageInput = document.getElementById("messageInput");
     const result = document.getElementById("result");
-
     const message = messageInput.value.trim();
 
     result.replaceChildren();
@@ -537,76 +535,44 @@ function checkMessage() {
         return;
     }
 
-    const lowerMessage = message.toLowerCase();
+    result.textContent = "Analyzing message securely...";
 
-    const warningPatterns = [
-        {
-            label: "Urgent or threatening language",
-            pattern: /\b(urgent|immediately|right now|act now|account blocked|account suspended|last warning|within 24 hours|final notice)\b/i
-        },
-        {
-            label: "Requests for passwords or security codes",
-            pattern: /\b(password|passcode|otp|one.time password|pin|verification code|security code)\b/i
-        },
-        {
-            label: "Unexpected prizes or rewards",
-            pattern: /\b(you have won|winner|won a prize|claim your prize|free gift|lottery|reward)\b/i
-        },
-        {
-            label: "Requests for money or payments",
-            pattern: /\b(send money|transfer money|pay now|processing fee|payment required|bank transfer|gift card)\b/i
-        },
-        {
-            label: "Suspicious link-related wording",
-            pattern: /\b(click here|open this link|verify your account|confirm your account|update your details|login here)\b/i
-        },
-        {
-            label: "Requests for personal or financial information",
-            pattern: /\b(bank details|credit card|debit card|national id|nid number|personal information|account details)\b/i
-        }
-    ];
-
-    const findings = warningPatterns.filter(item =>
-        item.pattern.test(lowerMessage)
-    );
-
-    // Create heading safely
-    const heading = document.createElement("h2");
-
-    if (findings.length > 0) {
-        result.classList.add("warning");
-
-        heading.textContent =
-            "Warning: Possible signs of a suspicious message";
-
-        const explanation = document.createElement("p");
-        explanation.textContent =
-            "We found the following warning signs:";
-
-        const list = document.createElement("ul");
-
-        findings.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.textContent = item.label;
-            list.appendChild(listItem);
+    try {
+        // Call backend using the existing API helper
+        const response = await apiRequest("http://localhost:8080/api/scam/check", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ message: message, lang: "en" })
         });
 
-        const advice = document.createElement("p");
-        advice.textContent =
-            "Do not click unexpected links, share OTPs or passwords, or send money until you independently verify the sender.";
+        const heading = document.createElement("h2");
+        
+        if (response.riskLevel === "HIGH") {
+            result.classList.add("warning");
+            heading.textContent = "⚠️ Warning: High Risk Detected";
+        } else if (response.riskLevel === "MEDIUM") {
+            result.classList.add("warning");
+            heading.textContent = "⚡ Caution: Possible Scam";
+        } else {
+            result.classList.add("safe");
+            heading.textContent = "✅ No Common Warning Signs Detected";
+        }
 
-        result.append(heading, explanation, list, advice);
+        const explanationList = document.createElement("ul");
+        response.explanations.forEach(exp => {
+            const li = document.createElement("li");
+            li.textContent = exp;
+            explanationList.appendChild(li);
+        });
 
-    } else {
-        result.classList.add("safe");
+        result.append(heading, explanationList);
 
-        heading.textContent = "No common warning signs detected.";
-
-        const explanation = document.createElement("p");
-        explanation.textContent =
-            "This does not prove that the message is safe. Be careful with unexpected messages and verify the sender through an official channel.";
-
-        result.append(heading, explanation);
+    } catch (error) {
+        console.error("Backend error:", error);
+        result.classList.add("warning");
+        result.textContent = "Error connecting to the secure server. Please ensure you are logged in.";
     }
 }
 

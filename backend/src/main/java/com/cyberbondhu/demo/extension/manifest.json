@@ -6,7 +6,8 @@
   "permissions": [
     "activeTab",
     "scripting",
-    "webNavigation"
+    "webNavigation",
+    "tabs"
   ],
   "background": {
     "service_worker": "background.js"
@@ -19,6 +20,7 @@
     }
   ],
   "host_permissions": [
-    "http://localhost:8080/*" 
+    "http://localhost:8080/*",
+    "<all_urls>"
   ]
 }

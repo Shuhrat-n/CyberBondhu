@@ -1,6 +1,6 @@
-window.addEventListener("message", (event) => {
-    if (event.data.type && event.data.type === "CYBERBONDHU_WARNING") {
-        renderWarning(event.data.data);
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "CYBERBONDHU_WARNING") {
+        renderWarning(message.data);
     }
 });
 
