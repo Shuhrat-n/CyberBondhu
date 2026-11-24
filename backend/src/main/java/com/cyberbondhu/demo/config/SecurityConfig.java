@@ -39,6 +39,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/scam/**").permitAll() 
+                .requestMatchers("/api/game/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
