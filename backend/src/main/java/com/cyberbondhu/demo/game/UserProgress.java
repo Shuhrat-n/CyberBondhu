@@ -1,19 +1,30 @@
 package com.cyberbondhu.demo.game;
 
 import jakarta.persistence.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_progress")
 public class UserProgress {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Column(name = "progress_id") 
     private Long id;
 
+    @Column(name = "user_id")
     private Long userId;
+
+    @Column(name = "scenario_id")
     private Long scenarioId;
+
+    @Column(name = "choice_id")
     private Long choiceId;
+
+    @Column(name = "is_safe_result") 
     private boolean correct;
-    private Instant answeredAt = Instant.now();
+
+    @Column(name = "attempted_at") 
+    private LocalDateTime answeredAt = LocalDateTime.now();
 
     // Getters and Setters
     public Long getId() { return id; }
@@ -25,5 +36,5 @@ public class UserProgress {
     public void setChoiceId(Long choiceId) { this.choiceId = choiceId; }
     public boolean isCorrect() { return correct; }
     public void setCorrect(boolean correct) { this.correct = correct; }
-    public Instant getAnsweredAt() { return answeredAt; }
+    public LocalDateTime getAnsweredAt() { return answeredAt; }
 }

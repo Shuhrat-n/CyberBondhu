@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,29 +21,38 @@ public class GameService {
         this.progress = progress;
     }
 
-    // 1. GET Start (No 'safe' flag leaked!)
+    // 1. GET Start (Shuffled, bilingual, no safe flag)
+    @Transactional(readOnly = true)
     public List<ScenarioResponse> getScenarios(String lang, int limit) {
         boolean isBn = "bn".equalsIgnoreCase(lang);
-        
-        return scenarios.findAll().stream()
-            .limit(limit)
-            .map(s -> new ScenarioResponse(
+        int n = Math.max(1, Math.min(limit, 20)); // Cap limit
+
+        List<Scenario> all = new ArrayList<>(scenarios.findAll());
+        Collections.shuffle(all); // Shuffle scenarios
+
+        return all.stream().limit(n).map(s -> {
+            List<ChoiceResponse> choices = s.getChoices().stream()
+                .map(c -> new ChoiceResponse(c.getId(), isBn ? c.getTextBn() : c.getTextEn()))
+                .collect(Collectors.toCollection(ArrayList::new));
+            Collections.shuffle(choices); // Shuffle answers
+
+            return new ScenarioResponse(
                 s.getId(),
                 isBn ? s.getTitleBn() : s.getTitleEn(),
                 isBn ? s.getMessageBn() : s.getMessageEn(),
-                s.getChoices().stream()
-                    .map(c -> new ChoiceResponse(
-                        c.getId(),
-                        isBn ? c.getTextBn() : c.getTextEn()
-                    ))
-                    .collect(Collectors.toList())
-            ))
-            .collect(Collectors.toList());
+                choices
+            );
+        }).collect(Collectors.toList());
     }
 
     // 2. POST Submit
     @Transactional
     public GameResult submit(Long userId, GameSubmission sub, String lang) {
+        // Null checks
+        if (sub == null || sub.scenarioId() == null || sub.choiceId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "scenarioId and choiceId are required");
+        }
+
         boolean isBn = "bn".equalsIgnoreCase(lang);
 
         Scenario s = scenarios.findById(sub.scenarioId())

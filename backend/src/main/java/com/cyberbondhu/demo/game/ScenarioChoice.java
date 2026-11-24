@@ -5,19 +5,20 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "scenario_choices")
 public class ScenarioChoice {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Column(name = "choice_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY) 
     @JoinColumn(name = "scenario_id")
     private Scenario scenario;
 
-    private String textEn;
-    private String textBn;
-    private boolean safe; // Notice we use 'safe', not 'isSafe'
-    
-    @Column(length = 1000) private String feedbackEn;
-    @Column(length = 1000) private String feedbackBn;
+    @Column(name = "choice_text_en") private String textEn;
+    @Column(name = "choice_text_bn") private String textBn;
+    @Column(name = "is_safe") private boolean safe;
+    @Column(name = "feedback_en", length = 1000) private String feedbackEn;
+    @Column(name = "feedback_bn", length = 1000) private String feedbackBn;
 
     // Getters and Setters
     public Long getId() { return id; }

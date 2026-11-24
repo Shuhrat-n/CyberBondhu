@@ -44,4 +44,11 @@ public class GameController {
         Long userId = 1L;
         return gameService.getProgress(userId);
     }
+        // PROGRESS: Get the user's game stats
+    @GetMapping("/progress")
+    public ProgressSummary getProgress(Authentication auth) {
+        // For now, we are using a hardcoded userId until we wire up the JWT principal
+        Long userId = 1L; 
+        return gameService.getProgress(userId);
+    }
 }
