@@ -11,11 +11,16 @@
 
 .cb-warning-box {
     background: #fff;
-    padding: 40px;
+    padding: 30px;
     border-radius: 12px;
     max-width: 600px;
+    width: 90%; /* Make it responsive */
+    max-height: 90vh; /* Prevent it from going off-screen */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
     text-align: center;
-    border-top: 10px solid #D32F2F; /* Red for warning */
+    border-top: 10px solid #D32F2F;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .cb-title {
@@ -35,7 +40,9 @@
     padding: 20px;
     border-radius: 8px;
     text-align: left;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    overflow-y: auto; /* Add scrollbar if it gets too long */
+    flex-grow: 1;
 }
 
 .cb-explanation-container h3 {

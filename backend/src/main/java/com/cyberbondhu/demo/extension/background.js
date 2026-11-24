@@ -1,8 +1,21 @@
+function sendWarning(tabId, data, attempts = 5) {
+    chrome.tabs.sendMessage(tabId, { type: "CYBERBONDHU_WARNING", data }, () => {
+        if (chrome.runtime.lastError && attempts > 0) {
+            setTimeout(() => sendWarning(tabId, data, attempts - 1), 300);
+        }
+    });
+}
+
 chrome.webNavigation.onCommitted.addListener(async (details) => {
     // Only check main frame
     if (details.frameId !== 0) return;
 
     const targetUrl = details.url;
+        // Ignore local development URLs
+    if (targetUrl.includes("localhost") || targetUrl.includes("127.0.0.1")) {
+        console.log("Ignoring local dev URL:", targetUrl);
+        return; 
+    }
 
     // Ignore internal pages
     if (targetUrl.startsWith("chrome://") || targetUrl.startsWith("edge://")) return;
@@ -13,32 +26,13 @@ chrome.webNavigation.onCommitted.addListener(async (details) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: targetUrl, lang: "en" })
         });
-        
+
         const result = await response.json();
+        console.log("API result:", result); // useful for checking field names
 
         if (result.riskLevel === "HIGH" || result.riskLevel === "MEDIUM") {
-            console.log("⚠️ Risk detected! Waiting for page to load to inject...");
-
-            setTimeout(() => {
-                chrome.scripting.insertCSS({
-                    target: { tabId: details.tabId },
-                    files: ["warning.css"]
-                }).catch(err => console.log("CSS inject error:", err));
-
-                chrome.scripting.executeScript({
-                    target: { tabId: details.tabId },
-                    files: ["content.js"]
-                }, () => {
-                    if (chrome.runtime.lastError) {
-                        console.log("Script inject error:", chrome.runtime.lastError.message);
-                        return;
-                    }
-                    chrome.tabs.sendMessage(details.tabId, { 
-                        type: "CYBERBONDHU_WARNING", 
-                        data: result 
-                    });
-                });
-            }, 500); 
+            console.log("⚠️ Risk detected! Sending warning to tab...");
+            sendWarning(details.tabId, result);
         }
     } catch (error) {
         console.error("CyberBondhu API Error:", error);
