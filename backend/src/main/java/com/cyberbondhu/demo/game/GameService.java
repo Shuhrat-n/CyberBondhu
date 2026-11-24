@@ -1,52 +1,87 @@
 package com.cyberbondhu.demo.game;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GameService {
 
-    // --- MOCK DATA (Replace with Database later) ---
-    private final List<Scenario> mockScenarios = List.of(
-        new Scenario(1, "Suspicious Bank Message", 
-            "Dear customer, your bank account will be BLOCKED today. Click http://bit.ly/bnk-verify and enter your PIN to keep it active.",
-            List.of(
-                new Choice(1, "Click the link and enter my PIN", false),
-                new Choice(2, "Ignore the message and call my bank", true),
-                new Choice(3, "Reply with my account number", false)
-            )
-        ),
-        new Scenario(2, "Lucky Draw Prize", 
-            "Congratulations! You won 50,000 Taka in a lucky draw. Send a 500 Taka processing fee to claim your prize.",
-            List.of(
-                new Choice(4, "Send the 500 Taka fee", false),
-                new Choice(5, "Delete the message", true),
-                new Choice(6, "Forward it to my family", false)
-            )
-        )
-    );
+    private final ScenarioRepository scenarios;
+    private final UserProgressRepository progress;
 
-    // 1. Get all scenarios
-    public List<Scenario> getAllScenarios() {
-        return mockScenarios;
+    public GameService(ScenarioRepository scenarios, UserProgressRepository progress) {
+        this.scenarios = scenarios;
+        this.progress = progress;
     }
 
-    // 2. Check the user's answer
-    public GameResult checkAnswer(GameSubmission submission) {
-        Scenario scenario = mockScenarios.stream()
-            .filter(s -> s.id() == submission.scenarioId())
-            .findFirst()
-            .orElseThrow(() -> new RuntimeException("Scenario not found"));
+    // 1. GET Start (No 'safe' flag leaked!)
+    public List<ScenarioResponse> getScenarios(String lang, int limit) {
+        boolean isBn = "bn".equalsIgnoreCase(lang);
+        
+        return scenarios.findAll().stream()
+            .limit(limit)
+            .map(s -> new ScenarioResponse(
+                s.getId(),
+                isBn ? s.getTitleBn() : s.getTitleEn(),
+                isBn ? s.getMessageBn() : s.getMessageEn(),
+                s.getChoices().stream()
+                    .map(c -> new ChoiceResponse(
+                        c.getId(),
+                        isBn ? c.getTextBn() : c.getTextEn()
+                    ))
+                    .collect(Collectors.toList())
+            ))
+            .collect(Collectors.toList());
+    }
 
-        Choice selectedChoice = scenario.choices().stream()
-            .filter(c -> c.id() == submission.choiceId())
-            .findFirst()
-            .orElseThrow(() -> new RuntimeException("Choice not found"));
+    // 2. POST Submit
+    @Transactional
+    public GameResult submit(Long userId, GameSubmission sub, String lang) {
+        boolean isBn = "bn".equalsIgnoreCase(lang);
 
-        if (selectedChoice.isSafe()) {
-            return new GameResult(true, "Correct! That is the safest action to take.");
-        } else {
-            return new GameResult(false, "Careful! Scammers use tactics like this to steal your information. The safe choice was to verify the sender.");
-        }
+        Scenario s = scenarios.findById(sub.scenarioId())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Scenario not found"));
+
+        ScenarioChoice picked = s.getChoices().stream()
+            .filter(c -> c.getId().equals(sub.choiceId()))
+            .findFirst()
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Choice does not belong to this scenario"));
+
+        ScenarioChoice safeChoice = s.getChoices().stream()
+            .filter(ScenarioChoice::isSafe)
+            .findFirst()
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Scenario has no safe choice"));
+
+        // Save Progress
+        UserProgress p = new UserProgress();
+        p.setUserId(userId);
+        p.setScenarioId(s.getId());
+        p.setChoiceId(picked.getId());
+        p.setCorrect(picked.isSafe());
+        progress.save(p);
+
+        // Return Result
+        return new GameResult(
+            picked.isSafe(),
+            isBn ? picked.getFeedbackBn() : picked.getFeedbackEn(),
+            safeChoice.getId(),
+            isBn ? safeChoice.getTextBn() : safeChoice.getTextEn()
+        );
+    }
+
+    // 3. GET Progress
+    public ProgressSummary getProgress(Long userId) {
+        long total = scenarios.count();
+        long completed = progress.countDistinctScenarioByUserId(userId);
+        long attempts = progress.countByUserId(userId);
+        long correct = progress.countByUserIdAndCorrectTrue(userId);
+        int pct = attempts == 0 ? 0 : (int) ((correct * 100) / attempts);
+
+        return new ProgressSummary(total, completed, correct, attempts, pct);
     }
 }

@@ -1,7 +1,8 @@
 package com.cyberbondhu.demo.game;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -14,20 +15,33 @@ public class GameController {
         this.gameService = gameService;
     }
 
-    // START: Get all scenarios
     @GetMapping("/start")
-    public ResponseEntity<List<Scenario>> startGame() {
-        return ResponseEntity.ok(gameService.getAllScenarios());
+    public List<ScenarioResponse> start(
+            @RequestParam(defaultValue = "en") String lang,
+            @RequestParam(defaultValue = "5") int limit) {
+        return gameService.getScenarios(lang, limit);
     }
 
-    // SUBMIT: Send the user's choice and get feedback
     @PostMapping("/submit")
-    public ResponseEntity<GameResult> submitAnswer(@RequestBody GameSubmission submission) {
-        try {
-            GameResult result = gameService.checkAnswer(submission);
-            return ResponseEntity.ok(result);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public GameResult submit(
+            @RequestBody GameSubmission sub,
+            @RequestParam(defaultValue = "en") String lang,
+            Authentication auth) {
+        
+        // TODO: Replace with your actual UserDetails implementation
+        // Long userId = ((UserDetailsImpl) auth.getPrincipal()).getId(); 
+        
+        // For testing purposes, let's just use a hardcoded ID 
+        // (We will fix this once we verify how AuthController passes the principal)
+        Long userId = 1L; 
+        
+        return gameService.submit(userId, sub, lang);
+    }
+
+    @GetMapping("/progress")
+    public ProgressSummary progress(Authentication auth) {
+        // Long userId = ((UserDetailsImpl) auth.getPrincipal()).getId();
+        Long userId = 1L;
+        return gameService.getProgress(userId);
     }
 }
