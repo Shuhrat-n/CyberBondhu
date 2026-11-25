@@ -1,21 +1,17 @@
 package com.cyberbondhu.demo.scam;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/scam")
 public class ScamController {
 
     private static final int MAX_MESSAGE_LENGTH = 5000;
+    private final ScamCheckService checkService;
 
-    private final ScamRuleEngine ruleEngine;
-
-    public ScamController(ScamRuleEngine ruleEngine) {
-        this.ruleEngine = ruleEngine;
+    public ScamController(ScamCheckService checkService) {
+        this.checkService = checkService;
     }
 
     @PostMapping("/check")
@@ -24,6 +20,6 @@ public class ScamController {
                 || request.message().length() > MAX_MESSAGE_LENGTH) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(ruleEngine.analyze(request.message(), request.lang()));
+        return ResponseEntity.ok(checkService.check(request.message(), request.lang()));
     }
 }
