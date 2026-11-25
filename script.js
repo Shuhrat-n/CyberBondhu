@@ -741,10 +741,34 @@ async function submitGameAnswer(scenarioId, choiceId) {
 
 
 // ---------- NEXT SCENARIO ----------
-
 function nextGameScenario() {
+    // If we are at the last scenario, show the final result
     if (currentGameIndex >= gameScenarios.length - 1) {
-        loadGameScenarios();
+        const title = document.getElementById("gameScenarioTitle");
+        const message = document.getElementById("gameMessage");
+        const choicesContainer = document.getElementById("gameChoices");
+        const feedback = document.getElementById("gameFeedback");
+        const nextButton = document.getElementById("gameNextBtn");
+        const count = document.getElementById("gameScenarioCount");
+
+        count.textContent = "Round Completed!";
+        title.textContent = "🎉 Great Job!";
+        message.textContent = "You have finished all the scenarios in this round. Check your updated Safety Progress on the Home page!";
+        choicesContainer.replaceChildren();
+        
+        feedback.className = "game-feedback safe";
+        feedback.innerHTML = "<h2>✅ Round Complete</h2><p>Your answers have been saved. Go back to the Home page to see your updated progress.</p>";
+        
+        nextButton.textContent = "Return to Home";
+        nextButton.classList.remove("hidden");
+        
+        // Change the button to go home instead of restarting the game
+        nextButton.onclick = () => {
+            showPage("home");
+            loadGameProgress(); // Refresh the home page progress
+            nextButton.onclick = nextGameScenario; // Reset for next time
+        };
+        
         return;
     }
 
