@@ -15,6 +15,8 @@ public class GameController {
         this.gameService = gameService;
     }
 
+    // 1. Get shuffled scenarios and choices.
+    // The response intentionally does not include whether a choice is safe.
     @GetMapping("/start")
     public List<ScenarioResponse> start(
             @RequestParam(defaultValue = "en") String lang,
@@ -22,33 +24,29 @@ public class GameController {
         return gameService.getScenarios(lang, limit);
     }
 
+    // 2. Submit the selected answer and save the attempt.
     @PostMapping("/submit")
     public GameResult submit(
-            @RequestBody GameSubmission sub,
+            @RequestBody GameSubmission submission,
             @RequestParam(defaultValue = "en") String lang,
-            Authentication auth) {
-        
-        // TODO: Replace with your actual UserDetails implementation
-        // Long userId = ((UserDetailsImpl) auth.getPrincipal()).getId(); 
-        
-        // For testing purposes, let's just use a hardcoded ID 
-        // (We will fix this once we verify how AuthController passes the principal)
-        Long userId = 1L; 
-        
-        return gameService.submit(userId, sub, lang);
+            Authentication authentication) {
+
+        // DEMO ONLY: Replace with the authenticated user's database ID
+        // when the JWT principal/user mapping is completed.
+        Long userId = 1L;
+
+        return gameService.submit(userId, submission, lang);
     }
 
+    // 3. Return progress for the dashboard.
+    // Keep only ONE GET mapping for /progress.
     @GetMapping("/progress")
-    public ProgressSummary progress(Authentication auth) {
-        // Long userId = ((UserDetailsImpl) auth.getPrincipal()).getId();
+    public ProgressSummary progress(Authentication authentication) {
+
+        // DEMO ONLY: Replace with the authenticated user's database ID
+        // when the JWT principal/user mapping is completed.
         Long userId = 1L;
-        return gameService.getProgress(userId);
-    }
-        // PROGRESS: Get the user's game stats
-    @GetMapping("/progress")
-    public ProgressSummary getProgress(Authentication auth) {
-        // For now, we are using a hardcoded userId until we wire up the JWT principal
-        Long userId = 1L; 
+
         return gameService.getProgress(userId);
     }
 }

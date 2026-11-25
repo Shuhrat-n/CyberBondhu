@@ -19,12 +19,15 @@
         <p>Your friendly online safety assistant</p>
     </header>
 
-
     <!-- NAVIGATION -->
     <nav class="navigation" aria-label="Main navigation">
 
         <button type="button" onclick="showPage('home')">
             Home
+        </button>
+
+        <button type="button" onclick="showPage('game')">
+            Safety Game
         </button>
 
         <button type="button" onclick="showPage('scam')">
@@ -36,7 +39,6 @@
         </button>
 
     </nav>
-
 
     <main class="container">
 
@@ -55,6 +57,26 @@
                 <strong>Remember:</strong>
                 Never share your password, PIN or OTP with someone
                 who contacts you unexpectedly.
+            </div>
+
+            <!-- GAME PROGRESS WIDGET -->
+            <div class="card game-progress-card">
+                <h2>Your Online Safety Progress</h2>
+
+                <div
+                    id="gameProgressCircle"
+                    class="game-progress-circle"
+                    role="progressbar"
+                    aria-label="Online safety game progress"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0">
+                    <span id="gameProgressPercent">0%</span>
+                </div>
+
+                <p id="gameProgressText" aria-live="polite">
+                    Loading your progress...
+                </p>
             </div>
 
             <div class="card-container">
@@ -81,7 +103,6 @@
 
                 </article>
 
-
                 <article class="card">
 
                     <div class="icon">🔐</div>
@@ -104,7 +125,6 @@
 
                 </article>
 
-
                 <article class="card">
 
                     <div class="icon">💡</div>
@@ -122,6 +142,67 @@
 
         </section>
 
+        <!-- CYBERBONDHU SAFETY GAME PAGE -->
+        <section id="game" class="page hidden">
+
+            <h1>🎮 Online Safety Game</h1>
+
+            <p class="intro">
+                Read the message carefully. Choose the safest action.
+                Learn how to recognize suspicious messages.
+            </p>
+
+            <div class="card game-card">
+
+                <p id="gameScenarioCount" class="help-text">
+                    Loading scenario...
+                </p>
+
+                <h2 id="gameScenarioTitle">Safety Challenge</h2>
+
+                <div class="game-message-area">
+                    <p class="game-message-label">Message received:</p>
+                    <div
+                        id="gameMessage"
+                        class="game-message-bubble"
+                        aria-live="polite">
+                        Your message will appear here.
+                    </div>
+                </div>
+
+                <h2>What should you do?</h2>
+
+                <div
+                    id="gameChoices"
+                    class="game-choices"
+                    role="group"
+                    aria-label="Answer choices">
+                </div>
+
+                <div
+                    id="gameFeedback"
+                    class="game-feedback hidden"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+                <button
+                    type="button"
+                    id="gameNextBtn"
+                    class="primary-button hidden">
+                    Next Scenario
+                </button>
+
+            </div>
+
+            <button
+                type="button"
+                class="secondary-button"
+                onclick="showPage('home')">
+                Back to Home
+            </button>
+
+        </section>
 
         <!-- SCAM CHECKER PAGE -->
         <section id="scam" class="page">
@@ -190,7 +271,6 @@
 
         </section>
 
-
         <!-- PASSWORD VAULT PAGE -->
         <section id="vault" class="page">
 
@@ -208,7 +288,6 @@
                 encrypt and unlock your saved passwords.
                 Do not share it with anyone.
             </div>
-
 
             <div class="vault-layout">
 
@@ -298,7 +377,6 @@
 
                 </div>
 
-
                 <!-- SAVED PASSWORDS -->
                 <div class="card">
 
@@ -317,7 +395,6 @@
 
             </div>
 
-
             <button
                 type="button"
                 class="secondary-button"
@@ -331,7 +408,6 @@
 
     </main>
 
-
     <!-- FOOTER -->
     <footer class="footer">
 
@@ -340,7 +416,6 @@
         <p>Stay alert. Stay safe. Stay connected.</p>
 
     </footer>
-
 
     <!-- JAVASCRIPT -->
     <script src="encryption.js"></script>

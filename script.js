@@ -1,4 +1,3 @@
-
 // ============================================
 // CYBERBONDHU - MAIN JAVASCRIPT
 // ============================================
@@ -20,6 +19,11 @@ function showPage(pageId) {
         top: 0,
         behavior: "smooth"
     });
+
+    // Load a fresh round whenever the user opens the game page.
+    if (pageId === "game") {
+        loadGameScenarios();
+    }
 }
 
 
@@ -34,6 +38,7 @@ function showPage(pageId) {
 const CURRENT_USER_ID = 1;
 const API_BASE_URL = "http://localhost:8080/api/vault";
 const AUTH_URL = "http://localhost:8080/api/auth";
+const GAME_API_URL = "http://localhost:8080/api/game";
 
 let jwtToken = null;
 let currentVaultData = [];
@@ -109,6 +114,14 @@ async function autoLogin() {
         jwtToken = data.token;
 
         await loadVaultEntries();
+        await loadGameProgress();
+
+        // If the user opened the game while login was still completing,
+        // load the scenarios now that the JWT is available.
+        const gamePage = document.getElementById("game");
+        if (gamePage && !gamePage.classList.contains("hidden")) {
+            await loadGameScenarios();
+        }
 
     } catch (error) {
         console.error("Login error:", error);
@@ -518,8 +531,263 @@ async function deleteVaultItem(entryId) {
 }
 
 
+// ============================================
+// CYBERBONDHU SAFETY GAME - FRONTEND INTEGRATION
+// ============================================
 
-// SCAM MESSAGE CHECKER 
+let gameScenarios = [];
+let currentGameIndex = 0;
+let gameAnswerSubmitted = false;
+
+
+// ---------- LOAD SCENARIOS ----------
+
+async function loadGameScenarios() {
+    const title = document.getElementById("gameScenarioTitle");
+    const message = document.getElementById("gameMessage");
+    const choicesContainer = document.getElementById("gameChoices");
+    const feedback = document.getElementById("gameFeedback");
+    const nextButton = document.getElementById("gameNextBtn");
+    const count = document.getElementById("gameScenarioCount");
+
+    // The game markup must exist in index.html.
+    if (!title || !message || !choicesContainer || !feedback || !nextButton || !count) {
+        console.warn("Game UI elements are missing from index.html.");
+        return;
+    }
+
+    title.textContent = "Loading game...";
+    message.textContent = "";
+    choicesContainer.replaceChildren();
+    feedback.replaceChildren();
+    feedback.className = "game-feedback hidden";
+    nextButton.classList.add("hidden");
+
+    try {
+        const scenarios = await apiRequest(
+            `${GAME_API_URL}/start?lang=en&limit=5`
+        );
+
+        if (!Array.isArray(scenarios) || scenarios.length === 0) {
+            throw new Error("No game scenarios are available.");
+        }
+
+        gameScenarios = scenarios;
+        currentGameIndex = 0;
+        displayGameScenario();
+
+    } catch (error) {
+        console.error("Game loading error:", error);
+        title.textContent = "Unable to load the game";
+        message.textContent = error.message ||
+            "Please make sure the backend is running and you are logged in.";
+        count.textContent = "Game unavailable";
+    }
+}
+
+
+// ---------- DISPLAY CURRENT SCENARIO ----------
+
+function displayGameScenario() {
+    const scenario = gameScenarios[currentGameIndex];
+
+    const title = document.getElementById("gameScenarioTitle");
+    const message = document.getElementById("gameMessage");
+    const choicesContainer = document.getElementById("gameChoices");
+    const feedback = document.getElementById("gameFeedback");
+    const nextButton = document.getElementById("gameNextBtn");
+    const count = document.getElementById("gameScenarioCount");
+
+    if (!title || !message || !choicesContainer || !feedback || !nextButton || !count) {
+        return;
+    }
+
+    if (!scenario) {
+        title.textContent = "Round Completed!";
+        message.textContent = "You have finished all the scenarios in this round.";
+        choicesContainer.replaceChildren();
+        count.textContent = "Round completed";
+
+        feedback.replaceChildren();
+        feedback.className = "game-feedback safe";
+
+        const heading = document.createElement("h2");
+        heading.textContent = "🎉 Well done!";
+
+        const explanation = document.createElement("p");
+        explanation.textContent =
+            "Keep practicing to improve your online safety skills.";
+
+        feedback.append(heading, explanation);
+
+        nextButton.textContent = "Play Again";
+        nextButton.classList.remove("hidden");
+        return;
+    }
+
+    gameAnswerSubmitted = false;
+
+    count.textContent =
+        `Scenario ${currentGameIndex + 1} of ${gameScenarios.length}`;
+
+    title.textContent = scenario.title;
+    message.textContent = scenario.message;
+
+    choicesContainer.replaceChildren();
+    feedback.replaceChildren();
+    feedback.className = "game-feedback hidden";
+    nextButton.classList.add("hidden");
+
+    scenario.choices.forEach(choice => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "game-choice";
+        button.textContent = choice.text;
+        button.setAttribute("aria-label", `Choose: ${choice.text}`);
+
+        button.addEventListener("click", () => {
+            submitGameAnswer(scenario.id, choice.id);
+        });
+
+        choicesContainer.appendChild(button);
+    });
+}
+
+
+// ---------- SUBMIT ANSWER ----------
+
+async function submitGameAnswer(scenarioId, choiceId) {
+    if (gameAnswerSubmitted) return;
+
+    gameAnswerSubmitted = true;
+
+    const choicesContainer = document.getElementById("gameChoices");
+    const feedback = document.getElementById("gameFeedback");
+    const nextButton = document.getElementById("gameNextBtn");
+
+    if (!choicesContainer || !feedback || !nextButton) return;
+
+    // Prevent the user from submitting more than one choice.
+    choicesContainer.querySelectorAll("button").forEach(button => {
+        button.disabled = true;
+    });
+
+    feedback.className = "game-feedback";
+    feedback.textContent = "Checking your answer...";
+
+    try {
+        const result = await apiRequest(
+            `${GAME_API_URL}/submit?lang=en`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    scenarioId: scenarioId,
+                    choiceId: choiceId
+                })
+            }
+        );
+
+        feedback.replaceChildren();
+
+        const heading = document.createElement("h2");
+        const explanation = document.createElement("p");
+
+        if (result.safe === true) {
+            feedback.classList.add("safe");
+            heading.textContent = "✅ Safe Choice!";
+        } else {
+            feedback.classList.add("danger");
+            heading.textContent = "⚠️ Be Careful!";
+        }
+
+        explanation.textContent = result.feedback || "Thank you for answering.";
+        feedback.append(heading, explanation);
+
+        // If the selected option was unsafe, show the safe option.
+        if (result.safe === false) {
+            const correctAnswer = document.createElement("p");
+            const label = document.createElement("strong");
+
+            label.textContent = "The safest action: ";
+            correctAnswer.append(
+                label,
+                document.createTextNode(result.correctChoiceText || "")
+            );
+
+            feedback.appendChild(correctAnswer);
+        }
+
+        nextButton.textContent = "Next Scenario";
+        nextButton.classList.remove("hidden");
+
+        await loadGameProgress();
+
+    } catch (error) {
+        console.error("Answer submission error:", error);
+
+        gameAnswerSubmitted = false;
+        feedback.className = "game-feedback danger";
+        feedback.textContent =
+            error.message || "Unable to submit your answer. Please try again.";
+
+        choicesContainer.querySelectorAll("button").forEach(button => {
+            button.disabled = false;
+        });
+    }
+}
+
+
+// ---------- NEXT SCENARIO ----------
+
+function nextGameScenario() {
+    if (currentGameIndex >= gameScenarios.length - 1) {
+        loadGameScenarios();
+        return;
+    }
+
+    currentGameIndex++;
+    displayGameScenario();
+}
+
+
+// ---------- DASHBOARD PROGRESS ----------
+
+async function loadGameProgress() {
+    const circle = document.getElementById("gameProgressCircle");
+    const percentText = document.getElementById("gameProgressPercent");
+    const progressText = document.getElementById("gameProgressText");
+
+    // The dashboard widget may not have been added yet.
+    if (!circle || !percentText || !progressText) return;
+
+    try {
+        const progress = await apiRequest(`${GAME_API_URL}/progress`);
+
+        const percent = Math.max(
+            0,
+            Math.min(100, Number(progress.safetyPercent) || 0)
+        );
+
+        circle.style.setProperty("--progress", `${percent}%`);
+        circle.setAttribute("aria-valuenow", String(percent));
+        percentText.textContent = `${percent}%`;
+
+        progressText.textContent =
+            `${progress.completedScenarios} of ${progress.totalScenarios} scenarios completed`;
+
+    } catch (error) {
+        console.error("Game progress error:", error);
+        progressText.textContent = "Your game progress could not be loaded.";
+    }
+}
+
+
+// ============================================
+// SCAM MESSAGE CHECKER
+// ============================================
 
 async function checkMessage() {
     const messageInput = document.getElementById("messageInput");
@@ -548,7 +816,7 @@ async function checkMessage() {
         });
 
         const heading = document.createElement("h2");
-        
+
         if (response.riskLevel === "HIGH") {
             result.classList.add("warning");
             heading.textContent = "⚠️ Warning: High Risk Detected";
@@ -582,5 +850,11 @@ async function checkMessage() {
 // ============================================
 
 window.addEventListener("DOMContentLoaded", () => {
+    const nextButton = document.getElementById("gameNextBtn");
+
+    if (nextButton) {
+        nextButton.addEventListener("click", nextGameScenario);
+    }
+
     autoLogin();
 });

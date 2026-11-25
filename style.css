@@ -469,3 +469,175 @@ textarea:focus-visible {
         width: 100%;
     }
 }
+
+
+/* ==========================================
+   CYBERBONDHU SAFETY GAME
+========================================== */
+
+.game-card {
+    max-width: 850px;
+    margin: 20px auto;
+}
+
+.game-message-area {
+    margin: 25px 0;
+}
+
+.game-message-label {
+    font-weight: bold;
+    color: #526477;
+}
+
+.game-message-bubble {
+    background-color: #e8f0f8;
+    border: 2px solid #9bb5cc;
+    border-radius: 18px;
+    padding: 24px;
+    font-size: 22px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.game-choices {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.game-choice {
+    width: 100%;
+    min-height: 70px;
+    padding: 20px;
+    background-color: white;
+    color: #123b5d;
+    border: 3px solid #123b5d;
+    border-radius: 12px;
+    font-size: 21px;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+}
+
+.game-choice:hover:not(:disabled) {
+    background-color: #e6eff7;
+}
+
+.game-choice:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.game-feedback {
+    margin-top: 25px;
+    padding: 24px;
+    border-radius: 12px;
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+.game-feedback h2 {
+    margin-top: 0;
+}
+
+.game-feedback.safe {
+    background-color: #e2f5e9;
+    border: 3px solid #176b50;
+    color: #14533e;
+}
+
+.game-feedback.danger {
+    background-color: #fde5e5;
+    border: 3px solid #b83232;
+    color: #7a2020;
+}
+
+.game-feedback.safe h2 {
+    color: #14533e;
+}
+
+.game-feedback.danger h2 {
+    color: #7a2020;
+}
+
+
+/* ==========================================
+   GAME PROGRESS CIRCLE
+========================================== */
+
+.game-progress-card {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.game-progress-circle {
+    --progress: 0%;
+
+    width: 180px;
+    height: 180px;
+    margin: 20px auto;
+    border-radius: 50%;
+
+    background: conic-gradient(
+        #176b50 var(--progress),
+        #dce5ed var(--progress)
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-progress-circle span {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    background-color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    font-weight: bold;
+    color: #123b5d;
+}
+
+
+/* Accessible keyboard focus */
+.game-choice:focus-visible,
+#gameNextBtn:focus-visible {
+    outline: 5px solid #e6a23c;
+    outline-offset: 4px;
+}
+
+
+/* ==========================================
+   GAME RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 600px) {
+
+    .game-message-bubble {
+        font-size: 20px;
+        padding: 18px;
+    }
+
+    .game-choice {
+        font-size: 19px;
+        padding: 18px;
+    }
+
+    .game-progress-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .game-progress-circle span {
+        width: 115px;
+        height: 115px;
+        font-size: 28px;
+    }
+}
