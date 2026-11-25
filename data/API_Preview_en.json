@@ -1,0 +1,287 @@
+[
+  {
+    "id": 1,
+    "title": "Account warning",
+    "message": "Update your account now or it will be closed. Use [link removed].",
+    "choices": [
+      {
+        "id": 11,
+        "text": "Open the official app independently to check."
+      },
+      {
+        "id": 12,
+        "text": "Use the message link."
+      },
+      {
+        "id": 13,
+        "text": "Send account details in reply."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Mobile verification",
+    "message": "Verify your mobile number using [link removed].",
+    "choices": [
+      {
+        "id": 21,
+        "text": "Enter my details through the link."
+      },
+      {
+        "id": 22,
+        "text": "Forward my verification code."
+      },
+      {
+        "id": 23,
+        "text": "Check with the mobile operator through its official app."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Unexpected prize",
+    "message": "Call [number removed] to collect your prize money.",
+    "choices": [
+      {
+        "id": 31,
+        "text": "Send my payment details to claim it."
+      },
+      {
+        "id": 32,
+        "text": "Do not contact the supplied number; verify the prize independently."
+      },
+      {
+        "id": 33,
+        "text": "Call the number immediately."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Gift voucher",
+    "message": "A shopping voucher is waiting. Claim it at [link removed].",
+    "choices": [
+      {
+        "id": 41,
+        "text": "Check offers inside the official shopping app."
+      },
+      {
+        "id": 42,
+        "text": "Sign in through the message link."
+      },
+      {
+        "id": 43,
+        "text": "Give my card details to claim it."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Holiday bonus",
+    "message": "A bank is offering a holiday bonus to mobile-wallet users. Submit your mobile-wallet number at [link removed].",
+    "choices": [
+      {
+        "id": 51,
+        "text": "Enter my number through the link."
+      },
+      {
+        "id": 52,
+        "text": "Share the message with friends as confirmed."
+      },
+      {
+        "id": 53,
+        "text": "Check the offer in the official wallet app."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Bank account problem",
+    "message": "There is a problem with your bank account. Contact [number removed].",
+    "choices": [
+      {
+        "id": 61,
+        "text": "Send my banking password."
+      },
+      {
+        "id": 62,
+        "text": "Call the number printed on my bank card or official website."
+      },
+      {
+        "id": 63,
+        "text": "Call the number in the message."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Mobile wallet problem",
+    "message": "Your mobile-wallet account has an error. Call [number removed].",
+    "choices": [
+      {
+        "id": 71,
+        "text": "Check the wallet using its official app or support."
+      },
+      {
+        "id": 72,
+        "text": "Call the number from the message."
+      },
+      {
+        "id": 73,
+        "text": "Share my wallet PIN if requested."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Easy income offer",
+    "message": "Earn money every day by joining through [link removed].",
+    "choices": [
+      {
+        "id": 81,
+        "text": "Join through the link immediately."
+      },
+      {
+        "id": 82,
+        "text": "Send money if asked to activate the job."
+      },
+      {
+        "id": 83,
+        "text": "Research the company independently before joining."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Family emergency",
+    "message": "Your son is in trouble. Pay money immediately using [link removed].",
+    "choices": [
+      {
+        "id": 91,
+        "text": "Give the sender my banking details."
+      },
+      {
+        "id": 92,
+        "text": "Call my son or another trusted family member directly."
+      },
+      {
+        "id": 93,
+        "text": "Send money immediately through the link."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Parcel on hold",
+    "message": "Your parcel is on hold. Provide more information using [link removed].",
+    "choices": [
+      {
+        "id": 101,
+        "text": "Check my order through the courier’s official service."
+      },
+      {
+        "id": 102,
+        "text": "Enter my personal details through the link."
+      },
+      {
+        "id": 103,
+        "text": "Pay an unexpected fee through the link."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Lottery notification",
+    "message": "You have won a large lottery prize. Contact [number removed] to claim it.",
+    "choices": [
+      {
+        "id": 111,
+        "text": "Contact the sender and pay a claim fee."
+      },
+      {
+        "id": 112,
+        "text": "Send my identity documents."
+      },
+      {
+        "id": 113,
+        "text": "Do not pay or provide information; verify independently."
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Phone reward",
+    "message": "A message claims you can receive free talk time by texting a supplied number. [Number removed.]",
+    "choices": [
+      {
+        "id": 121,
+        "text": "Give the sender my verification code."
+      },
+      {
+        "id": 122,
+        "text": "Check the offer in the operator’s official app."
+      },
+      {
+        "id": 123,
+        "text": "Text the supplied number without checking."
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Family message",
+    "message": "My exam results will be published tomorrow. Please pray for me.",
+    "choices": [
+      {
+        "id": 131,
+        "text": "Reply normally if I know the sender."
+      },
+      {
+        "id": 132,
+        "text": "Send my bank PIN as a reply."
+      },
+      {
+        "id": 133,
+        "text": "Report it as fraud solely because it is a message."
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Shopping conversation",
+    "message": "Are you going to the shopping mall?",
+    "choices": [
+      {
+        "id": 141,
+        "text": "Send my bank account password."
+      },
+      {
+        "id": 142,
+        "text": "Block every message containing a shopping question."
+      },
+      {
+        "id": 143,
+        "text": "Reply normally if I recognize the sender."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Appointment reminder",
+    "message": "Your previously booked clinic appointment is tomorrow at 10 AM. No reply required.",
+    "choices": [
+      {
+        "id": 151,
+        "text": "Assume every appointment reminder is fraud."
+      },
+      {
+        "id": 152,
+        "text": "Keep the reminder; call the clinic’s known number if unsure."
+      },
+      {
+        "id": 153,
+        "text": "Send my OTP to confirm the appointment."
+      }
+    ]
+  }
+]
