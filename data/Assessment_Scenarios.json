@@ -1,0 +1,562 @@
+[
+  {
+    "id": 101,
+    "phase": "pre",
+    "category": "suspicious",
+    "title": {
+      "en": "OTP request",
+      "bn": "ওটিপি চাওয়া"
+    },
+    "message": {
+      "en": "An unexpected caller says your wallet needs an OTP to stay active.",
+      "bn": "অপরিচিত কলার বলছে ওয়ালেট সচল রাখতে ওটিপি দিতে হবে।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Text the OTP to the caller.",
+          "bn": "কলারকে ওটিপি পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "OTP codes must remain private.",
+          "bn": "ওটিপি গোপন রাখতে হবে।"
+        },
+        "id": 1011
+      },
+      {
+        "text": {
+          "en": "Refuse and check official support.",
+          "bn": "না বলে অফিসিয়াল সহায়তায় যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "OTP codes must remain private.",
+          "bn": "ওটিপি গোপন রাখতে হবে।"
+        },
+        "id": 1012
+      },
+      {
+        "text": {
+          "en": "Read the OTP to the caller.",
+          "bn": "কলারকে ওটিপি বলি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "OTP codes must remain private.",
+          "bn": "ওটিপি গোপন রাখতে হবে।"
+        },
+        "id": 1013
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 102,
+    "phase": "pre",
+    "category": "suspicious",
+    "title": {
+      "en": "Prize fee",
+      "bn": "পুরস্কারের ফি"
+    },
+    "message": {
+      "en": "A message says you won a phone and must pay a delivery fee to claim it.",
+      "bn": "মেসেজে বলা হয়েছে ফোন জিতেছেন, নিতে ডেলিভারি ফি দিতে হবে।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Verify the contest independently without paying.",
+          "bn": "টাকা না দিয়ে নিজে প্রতিযোগিতা যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Unexpected prizes and advance fees are warning signs.",
+          "bn": "অপ্রত্যাশিত পুরস্কার ও অগ্রিম ফি সতর্কতার লক্ষণ।"
+        },
+        "id": 1021
+      },
+      {
+        "text": {
+          "en": "Pay the fee now.",
+          "bn": "এখনই ফি দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Unexpected prizes and advance fees are warning signs.",
+          "bn": "অপ্রত্যাশিত পুরস্কার ও অগ্রিম ফি সতর্কতার লক্ষণ।"
+        },
+        "id": 1022
+      },
+      {
+        "text": {
+          "en": "Send identity documents.",
+          "bn": "পরিচয়পত্র পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Unexpected prizes and advance fees are warning signs.",
+          "bn": "অপ্রত্যাশিত পুরস্কার ও অগ্রিম ফি সতর্কতার লক্ষণ।"
+        },
+        "id": 1023
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 103,
+    "phase": "pre",
+    "category": "suspicious",
+    "title": {
+      "en": "Account link",
+      "bn": "অ্যাকাউন্টের লিংক"
+    },
+    "message": {
+      "en": "An unexpected message says your email account will close unless you sign in through its link.",
+      "bn": "অপ্রত্যাশিত মেসেজে বলা হয়েছে লিংকে লগইন না করলে ইমেইল বন্ধ হবে।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Use the supplied link.",
+          "bn": "দেওয়া লিংক ব্যবহার করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Use the official service rather than an unexpected link.",
+          "bn": "অপ্রত্যাশিত লিংকের বদলে অফিসিয়াল সেবা ব্যবহার করুন।"
+        },
+        "id": 1031
+      },
+      {
+        "text": {
+          "en": "Reply with my password.",
+          "bn": "উত্তরে পাসওয়ার্ড দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Use the official service rather than an unexpected link.",
+          "bn": "অপ্রত্যাশিত লিংকের বদলে অফিসিয়াল সেবা ব্যবহার করুন।"
+        },
+        "id": 1032
+      },
+      {
+        "text": {
+          "en": "Open my email service directly.",
+          "bn": "নিজে ইমেইল সেবা খুলি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Use the official service rather than an unexpected link.",
+          "bn": "অপ্রত্যাশিত লিংকের বদলে অফিসিয়াল সেবা ব্যবহার করুন।"
+        },
+        "id": 1033
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 104,
+    "phase": "pre",
+    "category": "benign",
+    "title": {
+      "en": "Expected message",
+      "bn": "প্রত্যাশিত মেসেজ"
+    },
+    "message": {
+      "en": "Your known neighbor confirms the meeting you arranged for tomorrow.",
+      "bn": "পরিচিত প্রতিবেশী কালকের ঠিক করা দেখা করার কথা নিশ্চিত করেছেন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Report it solely because it is a text.",
+          "bn": "শুধু মেসেজ বলে রিপোর্ট করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Expected messages without sensitive requests need not be treated as scams.",
+          "bn": "গোপন তথ্য না চাওয়া প্রত্যাশিত মেসেজকে প্রতারণা ভাবার দরকার নেই।"
+        },
+        "id": 1041
+      },
+      {
+        "text": {
+          "en": "Reply normally.",
+          "bn": "স্বাভাবিকভাবে উত্তর দিই।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Expected messages without sensitive requests need not be treated as scams.",
+          "bn": "গোপন তথ্য না চাওয়া প্রত্যাশিত মেসেজকে প্রতারণা ভাবার দরকার নেই।"
+        },
+        "id": 1042
+      },
+      {
+        "text": {
+          "en": "Send my PIN to confirm.",
+          "bn": "নিশ্চিত করতে পিন দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Expected messages without sensitive requests need not be treated as scams.",
+          "bn": "গোপন তথ্য না চাওয়া প্রত্যাশিত মেসেজকে প্রতারণা ভাবার দরকার নেই।"
+        },
+        "id": 1043
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 105,
+    "phase": "pre",
+    "category": "suspicious",
+    "title": {
+      "en": "Unexpected transfer",
+      "bn": "অপ্রত্যাশিত টাকা পাঠানোর অনুরোধ"
+    },
+    "message": {
+      "en": "An unknown number claims to be your nephew and urgently asks for money.",
+      "bn": "অপরিচিত নম্বর থেকে ভাগনে পরিচয় দিয়ে জরুরি টাকা চাওয়া হচ্ছে।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Call my nephew on his known number.",
+          "bn": "ভাগনের পরিচিত নম্বরে কল করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Verify family requests through a trusted number.",
+          "bn": "পরিচিত নম্বরে পরিবারের অনুরোধ যাচাই করুন।"
+        },
+        "id": 1051
+      },
+      {
+        "text": {
+          "en": "Transfer money now.",
+          "bn": "এখনই টাকা পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Verify family requests through a trusted number.",
+          "bn": "পরিচিত নম্বরে পরিবারের অনুরোধ যাচাই করুন।"
+        },
+        "id": 1052
+      },
+      {
+        "text": {
+          "en": "Send bank details.",
+          "bn": "ব্যাংকের তথ্য পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Verify family requests through a trusted number.",
+          "bn": "পরিচিত নম্বরে পরিবারের অনুরোধ যাচাই করুন।"
+        },
+        "id": 1053
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 106,
+    "phase": "post",
+    "category": "suspicious",
+    "title": {
+      "en": "Verification code",
+      "bn": "যাচাই কোড"
+    },
+    "message": {
+      "en": "A caller claiming to be from your bank asks for the verification code sent to your phone.",
+      "bn": "ব্যাংকের কর্মী পরিচয় দিয়ে একজন ফোনে আসা যাচাই কোড চাইছেন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Read the code aloud.",
+          "bn": "কোড বলে দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "A verification code is private even if the caller claims authority.",
+          "bn": "প্রভাবশালী পরিচয় দিলেও যাচাই কোড গোপন রাখুন।"
+        },
+        "id": 1061
+      },
+      {
+        "text": {
+          "en": "Send a screenshot of the code.",
+          "bn": "কোডের ছবি পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "A verification code is private even if the caller claims authority.",
+          "bn": "প্রভাবশালী পরিচয় দিলেও যাচাই কোড গোপন রাখুন।"
+        },
+        "id": 1062
+      },
+      {
+        "text": {
+          "en": "Refuse and contact my bank independently.",
+          "bn": "না বলে নিজে ব্যাংকের সঙ্গে যোগাযোগ করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "A verification code is private even if the caller claims authority.",
+          "bn": "প্রভাবশালী পরিচয় দিলেও যাচাই কোড গোপন রাখুন।"
+        },
+        "id": 1063
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 107,
+    "phase": "post",
+    "category": "suspicious",
+    "title": {
+      "en": "Gift processing fee",
+      "bn": "উপহারের প্রক্রিয়াকরণ ফি"
+    },
+    "message": {
+      "en": "A message promises a free appliance if you first pay a processing fee.",
+      "bn": "মেসেজে বলা হয়েছে আগে ফি দিলে বিনা মূল্যে যন্ত্র পাবেন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Send my card details.",
+          "bn": "কার্ডের তথ্য পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Free gifts requiring unexpected fees may be fraudulent.",
+          "bn": "বিনা মূল্যের উপহারের জন্য অপ্রত্যাশিত ফি প্রতারণা হতে পারে।"
+        },
+        "id": 1071
+      },
+      {
+        "text": {
+          "en": "Verify the offer through official channels without paying.",
+          "bn": "টাকা না দিয়ে অফিসিয়াল মাধ্যমে যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Free gifts requiring unexpected fees may be fraudulent.",
+          "bn": "বিনা মূল্যের উপহারের জন্য অপ্রত্যাশিত ফি প্রতারণা হতে পারে।"
+        },
+        "id": 1072
+      },
+      {
+        "text": {
+          "en": "Pay the fee.",
+          "bn": "ফি দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Free gifts requiring unexpected fees may be fraudulent.",
+          "bn": "বিনা মূল্যের উপহারের জন্য অপ্রত্যাশিত ফি প্রতারণা হতে পারে।"
+        },
+        "id": 1073
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 108,
+    "phase": "post",
+    "category": "suspicious",
+    "title": {
+      "en": "Wallet link",
+      "bn": "ওয়ালেটের লিংক"
+    },
+    "message": {
+      "en": "An unexpected message says your wallet will be frozen unless you update it using a link.",
+      "bn": "অপ্রত্যাশিত মেসেজে বলা হয়েছে লিংক দিয়ে আপডেট না করলে ওয়ালেট বন্ধ হবে।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Open the official wallet app myself.",
+          "bn": "নিজে অফিসিয়াল ওয়ালেট অ্যাপ খুলি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Urgent account threats do not make unfamiliar links trustworthy.",
+          "bn": "জরুরি অ্যাকাউন্ট বন্ধের হুমকিতে অপরিচিত লিংক বিশ্বাসযোগ্য হয় না।"
+        },
+        "id": 1081
+      },
+      {
+        "text": {
+          "en": "Follow the supplied link.",
+          "bn": "দেওয়া লিংক ব্যবহার করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Urgent account threats do not make unfamiliar links trustworthy.",
+          "bn": "জরুরি অ্যাকাউন্ট বন্ধের হুমকিতে অপরিচিত লিংক বিশ্বাসযোগ্য হয় না।"
+        },
+        "id": 1082
+      },
+      {
+        "text": {
+          "en": "Reply with my wallet PIN.",
+          "bn": "উত্তরে পিন দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Urgent account threats do not make unfamiliar links trustworthy.",
+          "bn": "জরুরি অ্যাকাউন্ট বন্ধের হুমকিতে অপরিচিত লিংক বিশ্বাসযোগ্য হয় না।"
+        },
+        "id": 1083
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 109,
+    "phase": "post",
+    "category": "benign",
+    "title": {
+      "en": "Expected reminder",
+      "bn": "প্রত্যাশিত স্মরণবার্তা"
+    },
+    "message": {
+      "en": "Your known friend reminds you of the lunch you arranged together.",
+      "bn": "পরিচিত বন্ধু একসঙ্গে ঠিক করা দুপুরের খাবারের কথা মনে করিয়ে দিয়েছেন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Send my banking password.",
+          "bn": "ব্যাংকিং পাসওয়ার্ড পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Ordinary expected communication is not automatically a scam.",
+          "bn": "সাধারণ প্রত্যাশিত যোগাযোগ নিজে থেকেই প্রতারণা নয়।"
+        },
+        "id": 1091
+      },
+      {
+        "text": {
+          "en": "Report it only because it is a message.",
+          "bn": "শুধু মেসেজ বলে রিপোর্ট করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Ordinary expected communication is not automatically a scam.",
+          "bn": "সাধারণ প্রত্যাশিত যোগাযোগ নিজে থেকেই প্রতারণা নয়।"
+        },
+        "id": 1092
+      },
+      {
+        "text": {
+          "en": "Reply normally.",
+          "bn": "স্বাভাবিকভাবে উত্তর দিই।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Ordinary expected communication is not automatically a scam.",
+          "bn": "সাধারণ প্রত্যাশিত যোগাযোগ নিজে থেকেই প্রতারণা নয়।"
+        },
+        "id": 1093
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  },
+  {
+    "id": 110,
+    "phase": "post",
+    "category": "suspicious",
+    "title": {
+      "en": "Urgent family payment",
+      "bn": "পরিবারের জরুরি টাকা"
+    },
+    "message": {
+      "en": "An unfamiliar account claims to be your niece and urgently asks you to pay a bill.",
+      "bn": "অপরিচিত অ্যাকাউন্ট থেকে ভাগনি পরিচয় দিয়ে জরুরি বিল দিতে বলছে।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Send my card number.",
+          "bn": "কার্ড নম্বর পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Confirm identity independently before making payments.",
+          "bn": "টাকা দেওয়ার আগে নিজে পরিচয় যাচাই করুন।"
+        },
+        "id": 1101
+      },
+      {
+        "text": {
+          "en": "Call my niece using her saved number.",
+          "bn": "ভাগনির সংরক্ষিত নম্বরে কল করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Confirm identity independently before making payments.",
+          "bn": "টাকা দেওয়ার আগে নিজে পরিচয় যাচাই করুন।"
+        },
+        "id": 1102
+      },
+      {
+        "text": {
+          "en": "Pay the bill immediately.",
+          "bn": "এখনই বিল দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Confirm identity independently before making payments.",
+          "bn": "টাকা দেওয়ার আগে নিজে পরিচয় যাচাই করুন।"
+        },
+        "id": 1103
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "original_label": null,
+      "locator": "held-out assessment item"
+    }
+  }
+]

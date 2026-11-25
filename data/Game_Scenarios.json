@@ -1,0 +1,887 @@
+[
+  {
+    "id": 1,
+    "phase": "training",
+    "category": "account_threat",
+    "title": {
+      "en": "Account warning",
+      "bn": "অ্যাকাউন্টের সতর্কবার্তা"
+    },
+    "message": {
+      "en": "Update your account now or it will be closed. Use [link removed].",
+      "bn": "এখনই অ্যাকাউন্ট আপডেট করুন, না হলে বন্ধ হয়ে যাবে। [লিংক সরানো হয়েছে] ব্যবহার করুন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Open the official app independently to check.",
+          "bn": "নিজে অফিসিয়াল অ্যাপ খুলে যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Threats of closure create pressure. Verify independently and never send account details.",
+          "bn": "নিরাপদ সিদ্ধান্ত। অ্যাকাউন্ট বন্ধের ভয় দেখিয়ে চাপ দেওয়া হয়। নিজে যাচাই করুন, অ্যাকাউন্টের তথ্য পাঠাবেন না।"
+        },
+        "id": 11
+      },
+      {
+        "text": {
+          "en": "Use the message link.",
+          "bn": "মেসেজের লিংক ব্যবহার করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Threats of closure create pressure. Verify independently and never send account details.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অ্যাকাউন্ট বন্ধের ভয় দেখিয়ে চাপ দেওয়া হয়। নিজে যাচাই করুন, অ্যাকাউন্টের তথ্য পাঠাবেন না।"
+        },
+        "id": 12
+      },
+      {
+        "text": {
+          "en": "Send account details in reply.",
+          "bn": "উত্তরে অ্যাকাউন্টের তথ্য পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Threats of closure create pressure. Verify independently and never send account details.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অ্যাকাউন্ট বন্ধের ভয় দেখিয়ে চাপ দেওয়া হয়। নিজে যাচাই করুন, অ্যাকাউন্টের তথ্য পাঠাবেন না।"
+        },
+        "id": 13
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 117; Bengali",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 2,
+    "phase": "training",
+    "category": "mobile_verification",
+    "title": {
+      "en": "Mobile verification",
+      "bn": "মোবাইল নম্বর যাচাই"
+    },
+    "message": {
+      "en": "Verify your mobile number using [link removed].",
+      "bn": "মোবাইল নম্বর যাচাই করতে [লিংক সরানো হয়েছে] ব্যবহার করুন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Enter my details through the link.",
+          "bn": "লিংকে নিজের তথ্য দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Unrequested verification links may steal information. Use official channels and keep codes private.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত যাচাই লিংক তথ্য চুরি করতে পারে। অফিসিয়াল মাধ্যম ব্যবহার করুন ও কোড গোপন রাখুন।"
+        },
+        "id": 21
+      },
+      {
+        "text": {
+          "en": "Forward my verification code.",
+          "bn": "যাচাই কোড পাঠিয়ে দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Unrequested verification links may steal information. Use official channels and keep codes private.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত যাচাই লিংক তথ্য চুরি করতে পারে। অফিসিয়াল মাধ্যম ব্যবহার করুন ও কোড গোপন রাখুন।"
+        },
+        "id": 22
+      },
+      {
+        "text": {
+          "en": "Check with the mobile operator through its official app.",
+          "bn": "অপারেটরের অফিসিয়াল অ্যাপে যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Unrequested verification links may steal information. Use official channels and keep codes private.",
+          "bn": "নিরাপদ সিদ্ধান্ত। অপ্রত্যাশিত যাচাই লিংক তথ্য চুরি করতে পারে। অফিসিয়াল মাধ্যম ব্যবহার করুন ও কোড গোপন রাখুন।"
+        },
+        "id": 23
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 123; Bengali",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 3,
+    "phase": "training",
+    "category": "prize",
+    "title": {
+      "en": "Unexpected prize",
+      "bn": "অপ্রত্যাশিত পুরস্কার"
+    },
+    "message": {
+      "en": "Call [number removed] to collect your prize money.",
+      "bn": "পুরস্কারের টাকা পেতে [নম্বর সরানো হয়েছে] নম্বরে কল করুন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Send my payment details to claim it.",
+          "bn": "পুরস্কার পেতে লেনদেনের তথ্য পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Unexpected prizes can be bait for fees or personal data. Do not use contact details from the message.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত পুরস্কার ফি বা ব্যক্তিগত তথ্য নেওয়ার ফাঁদ হতে পারে। মেসেজের যোগাযোগের তথ্য ব্যবহার করবেন না।"
+        },
+        "id": 31
+      },
+      {
+        "text": {
+          "en": "Do not contact the supplied number; verify the prize independently.",
+          "bn": "দেওয়া নম্বরে কল না করে নিজে পুরস্কারের সত্যতা যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Unexpected prizes can be bait for fees or personal data. Do not use contact details from the message.",
+          "bn": "নিরাপদ সিদ্ধান্ত। অপ্রত্যাশিত পুরস্কার ফি বা ব্যক্তিগত তথ্য নেওয়ার ফাঁদ হতে পারে। মেসেজের যোগাযোগের তথ্য ব্যবহার করবেন না।"
+        },
+        "id": 32
+      },
+      {
+        "text": {
+          "en": "Call the number immediately.",
+          "bn": "এখনই ওই নম্বরে কল করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Unexpected prizes can be bait for fees or personal data. Do not use contact details from the message.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত পুরস্কার ফি বা ব্যক্তিগত তথ্য নেওয়ার ফাঁদ হতে পারে। মেসেজের যোগাযোগের তথ্য ব্যবহার করবেন না।"
+        },
+        "id": 33
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 132; Bengali",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 4,
+    "phase": "training",
+    "category": "online_shopping",
+    "title": {
+      "en": "Gift voucher",
+      "bn": "উপহারের ভাউচার"
+    },
+    "message": {
+      "en": "A shopping voucher is waiting. Claim it at [link removed].",
+      "bn": "আপনার জন্য কেনাকাটার ভাউচার আছে। [লিংক সরানো হয়েছে] থেকে নিন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Check offers inside the official shopping app.",
+          "bn": "অফিসিয়াল কেনাকাটার অ্যাপে অফার যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Fake vouchers imitate familiar shops. Use the official app instead of unfamiliar links.",
+          "bn": "নিরাপদ সিদ্ধান্ত। ভুয়া ভাউচার পরিচিত দোকানের নাম ব্যবহার করতে পারে। অপরিচিত লিংকের বদলে অফিসিয়াল অ্যাপ ব্যবহার করুন।"
+        },
+        "id": 41
+      },
+      {
+        "text": {
+          "en": "Sign in through the message link.",
+          "bn": "মেসেজের লিংকে লগইন করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Fake vouchers imitate familiar shops. Use the official app instead of unfamiliar links.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। ভুয়া ভাউচার পরিচিত দোকানের নাম ব্যবহার করতে পারে। অপরিচিত লিংকের বদলে অফিসিয়াল অ্যাপ ব্যবহার করুন।"
+        },
+        "id": 42
+      },
+      {
+        "text": {
+          "en": "Give my card details to claim it.",
+          "bn": "ভাউচার পেতে কার্ডের তথ্য দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Fake vouchers imitate familiar shops. Use the official app instead of unfamiliar links.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। ভুয়া ভাউচার পরিচিত দোকানের নাম ব্যবহার করতে পারে। অপরিচিত লিংকের বদলে অফিসিয়াল অ্যাপ ব্যবহার করুন।"
+        },
+        "id": 43
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 140; Bengali",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 5,
+    "phase": "training",
+    "category": "cashback",
+    "title": {
+      "en": "Holiday bonus",
+      "bn": "উৎসবের বোনাস"
+    },
+    "message": {
+      "en": "A bank is offering a holiday bonus to mobile-wallet users. Submit your mobile-wallet number at [link removed].",
+      "bn": "একটি ব্যাংক উৎসব উপলক্ষে মোবাইল ওয়ালেট ব্যবহারকারীদের বোনাস দিচ্ছে। [লিংক সরানো হয়েছে] থেকে নম্বর দিন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Enter my number through the link.",
+          "bn": "লিংকে নম্বর দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A familiar bank name does not prove an offer is genuine. Check the official app before sharing any information.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। পরিচিত ব্যাংকের নাম থাকলেই অফার সত্য হয় না। তথ্য দেওয়ার আগে অফিসিয়াল অ্যাপে যাচাই করুন।"
+        },
+        "id": 51
+      },
+      {
+        "text": {
+          "en": "Share the message with friends as confirmed.",
+          "bn": "সত্য ধরে বন্ধুদের কাছে পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A familiar bank name does not prove an offer is genuine. Check the official app before sharing any information.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। পরিচিত ব্যাংকের নাম থাকলেই অফার সত্য হয় না। তথ্য দেওয়ার আগে অফিসিয়াল অ্যাপে যাচাই করুন।"
+        },
+        "id": 52
+      },
+      {
+        "text": {
+          "en": "Check the offer in the official wallet app.",
+          "bn": "ওয়ালেটের অফিসিয়াল অ্যাপে অফার যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. A familiar bank name does not prove an offer is genuine. Check the official app before sharing any information.",
+          "bn": "নিরাপদ সিদ্ধান্ত। পরিচিত ব্যাংকের নাম থাকলেই অফার সত্য হয় না। তথ্য দেওয়ার আগে অফিসিয়াল অ্যাপে যাচাই করুন।"
+        },
+        "id": 53
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 145; Bengali",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 6,
+    "phase": "training",
+    "category": "bank_impersonation",
+    "title": {
+      "en": "Bank account problem",
+      "bn": "ব্যাংক অ্যাকাউন্টে সমস্যা"
+    },
+    "message": {
+      "en": "There is a problem with your bank account. Contact [number removed].",
+      "bn": "আপনার ব্যাংক অ্যাকাউন্টে সমস্যা হয়েছে। [নম্বর সরানো হয়েছে] নম্বরে যোগাযোগ করুন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Send my banking password.",
+          "bn": "ব্যাংকিং পাসওয়ার্ড পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A sender can impersonate a bank. Use contact information you already trust; never share passwords.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। প্রেরক ব্যাংকের পরিচয় নকল করতে পারে। পরিচিত নির্ভরযোগ্য নম্বর ব্যবহার করুন, পাসওয়ার্ড দেবেন না।"
+        },
+        "id": 61
+      },
+      {
+        "text": {
+          "en": "Call the number printed on my bank card or official website.",
+          "bn": "ব্যাংক কার্ড বা অফিসিয়াল ওয়েবসাইটের নম্বরে কল করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. A sender can impersonate a bank. Use contact information you already trust; never share passwords.",
+          "bn": "নিরাপদ সিদ্ধান্ত। প্রেরক ব্যাংকের পরিচয় নকল করতে পারে। পরিচিত নির্ভরযোগ্য নম্বর ব্যবহার করুন, পাসওয়ার্ড দেবেন না।"
+        },
+        "id": 62
+      },
+      {
+        "text": {
+          "en": "Call the number in the message.",
+          "bn": "মেসেজের নম্বরে কল করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A sender can impersonate a bank. Use contact information you already trust; never share passwords.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। প্রেরক ব্যাংকের পরিচয় নকল করতে পারে। পরিচিত নির্ভরযোগ্য নম্বর ব্যবহার করুন, পাসওয়ার্ড দেবেন না।"
+        },
+        "id": 63
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 181; English",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 7,
+    "phase": "training",
+    "category": "wallet_problem",
+    "title": {
+      "en": "Mobile wallet problem",
+      "bn": "মোবাইল ওয়ালেটে সমস্যা"
+    },
+    "message": {
+      "en": "Your mobile-wallet account has an error. Call [number removed].",
+      "bn": "আপনার মোবাইল ওয়ালেট অ্যাকাউন্টে ত্রুটি দেখা দিয়েছে। [নম্বর সরানো হয়েছে] নম্বরে কল করুন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Check the wallet using its official app or support.",
+          "bn": "ওয়ালেটের অফিসিয়াল অ্যাপ বা সহায়তা কেন্দ্রে যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Fake support can request your PIN or OTP. Never disclose them, even to someone claiming to be support.",
+          "bn": "নিরাপদ সিদ্ধান্ত। ভুয়া সহায়তাকারী পিন বা ওটিপি চাইতে পারে। সহায়তাকারী দাবি করলেও এসব দেবেন না।"
+        },
+        "id": 71
+      },
+      {
+        "text": {
+          "en": "Call the number from the message.",
+          "bn": "মেসেজের নম্বরে কল করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Fake support can request your PIN or OTP. Never disclose them, even to someone claiming to be support.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। ভুয়া সহায়তাকারী পিন বা ওটিপি চাইতে পারে। সহায়তাকারী দাবি করলেও এসব দেবেন না।"
+        },
+        "id": 72
+      },
+      {
+        "text": {
+          "en": "Share my wallet PIN if requested.",
+          "bn": "চাইলে ওয়ালেটের পিন দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Fake support can request your PIN or OTP. Never disclose them, even to someone claiming to be support.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। ভুয়া সহায়তাকারী পিন বা ওটিপি চাইতে পারে। সহায়তাকারী দাবি করলেও এসব দেবেন না।"
+        },
+        "id": 73
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 161; Bengali",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 8,
+    "phase": "training",
+    "category": "job_offer",
+    "title": {
+      "en": "Easy income offer",
+      "bn": "সহজ আয়ের অফার"
+    },
+    "message": {
+      "en": "Earn money every day by joining through [link removed].",
+      "bn": "[লিংক সরানো হয়েছে] দিয়ে যোগ দিয়ে প্রতিদিন টাকা আয় করুন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Join through the link immediately.",
+          "bn": "এখনই লিংক দিয়ে যোগ দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Promises of easy money may lead to fraudulent jobs or advance fees. Verify the employer and avoid paying to unlock work.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। সহজ আয়ের প্রতিশ্রুতি ভুয়া চাকরি বা অগ্রিম ফি নেওয়ার ফাঁদ হতে পারে। প্রতিষ্ঠান যাচাই করুন, কাজ পাওয়ার জন্য টাকা দেবেন না।"
+        },
+        "id": 81
+      },
+      {
+        "text": {
+          "en": "Send money if asked to activate the job.",
+          "bn": "কাজ চালু করতে চাইলে টাকা পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Promises of easy money may lead to fraudulent jobs or advance fees. Verify the employer and avoid paying to unlock work.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। সহজ আয়ের প্রতিশ্রুতি ভুয়া চাকরি বা অগ্রিম ফি নেওয়ার ফাঁদ হতে পারে। প্রতিষ্ঠান যাচাই করুন, কাজ পাওয়ার জন্য টাকা দেবেন না।"
+        },
+        "id": 82
+      },
+      {
+        "text": {
+          "en": "Research the company independently before joining.",
+          "bn": "যোগ দেওয়ার আগে নিজে প্রতিষ্ঠান সম্পর্কে যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Promises of easy money may lead to fraudulent jobs or advance fees. Verify the employer and avoid paying to unlock work.",
+          "bn": "নিরাপদ সিদ্ধান্ত। সহজ আয়ের প্রতিশ্রুতি ভুয়া চাকরি বা অগ্রিম ফি নেওয়ার ফাঁদ হতে পারে। প্রতিষ্ঠান যাচাই করুন, কাজ পাওয়ার জন্য টাকা দেবেন না।"
+        },
+        "id": 83
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 135; English",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 9,
+    "phase": "training",
+    "category": "family_emergency",
+    "title": {
+      "en": "Family emergency",
+      "bn": "পরিবারের জরুরি খবর"
+    },
+    "message": {
+      "en": "Your son is in trouble. Pay money immediately using [link removed].",
+      "bn": "আপনার ছেলে বিপদে পড়েছে। এখনই [লিংক সরানো হয়েছে] দিয়ে টাকা পাঠান।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Give the sender my banking details.",
+          "bn": "প্রেরককে ব্যাংকিং তথ্য দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Fraudsters use fear and urgency. Contact your family through a known number before paying.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। প্রতারকেরা ভয় ও তাড়াহুড়া কাজে লাগায়। টাকা দেওয়ার আগে পরিচিত নম্বরে পরিবারের সঙ্গে কথা বলুন।"
+        },
+        "id": 91
+      },
+      {
+        "text": {
+          "en": "Call my son or another trusted family member directly.",
+          "bn": "ছেলে বা পরিচিত পরিবারের সদস্যকে সরাসরি কল করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Fraudsters use fear and urgency. Contact your family through a known number before paying.",
+          "bn": "নিরাপদ সিদ্ধান্ত। প্রতারকেরা ভয় ও তাড়াহুড়া কাজে লাগায়। টাকা দেওয়ার আগে পরিচিত নম্বরে পরিবারের সঙ্গে কথা বলুন।"
+        },
+        "id": 92
+      },
+      {
+        "text": {
+          "en": "Send money immediately through the link.",
+          "bn": "লিংক দিয়ে এখনই টাকা পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Fraudsters use fear and urgency. Contact your family through a known number before paying.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। প্রতারকেরা ভয় ও তাড়াহুড়া কাজে লাগায়। টাকা দেওয়ার আগে পরিচিত নম্বরে পরিবারের সঙ্গে কথা বলুন।"
+        },
+        "id": 93
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 176; English",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 10,
+    "phase": "training",
+    "category": "delivery",
+    "title": {
+      "en": "Parcel on hold",
+      "bn": "পার্সেল আটকে আছে"
+    },
+    "message": {
+      "en": "Your parcel is on hold. Provide more information using [link removed].",
+      "bn": "আপনার পার্সেল আটকে আছে। [লিংক সরানো হয়েছে] দিয়ে আরও তথ্য দিন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Check my order through the courier’s official service.",
+          "bn": "কুরিয়ারের অফিসিয়াল মাধ্যমে অর্ডার যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Delivery scams exploit expected parcels. Use the original order confirmation or official courier tracking.",
+          "bn": "নিরাপদ সিদ্ধান্ত। পার্সেল আসার অপেক্ষাকে প্রতারকেরা কাজে লাগায়। আসল অর্ডার তথ্য বা অফিসিয়াল ট্র্যাকিং ব্যবহার করুন।"
+        },
+        "id": 101
+      },
+      {
+        "text": {
+          "en": "Enter my personal details through the link.",
+          "bn": "লিংকে ব্যক্তিগত তথ্য দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Delivery scams exploit expected parcels. Use the original order confirmation or official courier tracking.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। পার্সেল আসার অপেক্ষাকে প্রতারকেরা কাজে লাগায়। আসল অর্ডার তথ্য বা অফিসিয়াল ট্র্যাকিং ব্যবহার করুন।"
+        },
+        "id": 102
+      },
+      {
+        "text": {
+          "en": "Pay an unexpected fee through the link.",
+          "bn": "লিংক দিয়ে অপ্রত্যাশিত ফি দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Delivery scams exploit expected parcels. Use the original order confirmation or official courier tracking.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। পার্সেল আসার অপেক্ষাকে প্রতারকেরা কাজে লাগায়। আসল অর্ডার তথ্য বা অফিসিয়াল ট্র্যাকিং ব্যবহার করুন।"
+        },
+        "id": 103
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 182; CodeMix",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 11,
+    "phase": "training",
+    "category": "lottery",
+    "title": {
+      "en": "Lottery notification",
+      "bn": "লটারির খবর"
+    },
+    "message": {
+      "en": "You have won a large lottery prize. Contact [number removed] to claim it.",
+      "bn": "আপনি বড় লটারি পুরস্কার জিতেছেন। নিতে [নম্বর সরানো হয়েছে] নম্বরে যোগাযোগ করুন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Contact the sender and pay a claim fee.",
+          "bn": "প্রেরকের সঙ্গে যোগাযোগ করে ফি দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A surprise lottery is not proof of a win. Do not pay fees or send identity documents.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত লটারির বার্তা জয়ের প্রমাণ নয়। ফি বা পরিচয়পত্র দেবেন না।"
+        },
+        "id": 111
+      },
+      {
+        "text": {
+          "en": "Send my identity documents.",
+          "bn": "পরিচয়পত্র পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A surprise lottery is not proof of a win. Do not pay fees or send identity documents.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত লটারির বার্তা জয়ের প্রমাণ নয়। ফি বা পরিচয়পত্র দেবেন না।"
+        },
+        "id": 112
+      },
+      {
+        "text": {
+          "en": "Do not pay or provide information; verify independently.",
+          "bn": "টাকা বা তথ্য না দিয়ে নিজে যাচাই করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. A surprise lottery is not proof of a win. Do not pay fees or send identity documents.",
+          "bn": "নিরাপদ সিদ্ধান্ত। অপ্রত্যাশিত লটারির বার্তা জয়ের প্রমাণ নয়। ফি বা পরিচয়পত্র দেবেন না।"
+        },
+        "id": 113
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "smish",
+      "locator": "preview line 166; English",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 12,
+    "phase": "training",
+    "category": "subscription",
+    "title": {
+      "en": "Phone reward",
+      "bn": "ফোনের পুরস্কার"
+    },
+    "message": {
+      "en": "A message claims you can receive free talk time by texting a supplied number. [Number removed.]",
+      "bn": "একটি মেসেজে বলা হয়েছে, দেওয়া নম্বরে এসএমএস পাঠালে বিনা মূল্যে কথা বলার সময় পাবেন। [নম্বর সরানো হয়েছে]"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Give the sender my verification code.",
+          "bn": "প্রেরককে যাচাই কোড দিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Unsolicited rewards can involve paid subscriptions. Verify terms through your operator.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত পুরস্কারে টাকা কাটা সাবস্ক্রিপশন থাকতে পারে। অপারেটরের মাধ্যমে শর্ত যাচাই করুন।"
+        },
+        "id": 121
+      },
+      {
+        "text": {
+          "en": "Check the offer in the operator’s official app.",
+          "bn": "অপারেটরের অফিসিয়াল অ্যাপে অফার দেখি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. Unsolicited rewards can involve paid subscriptions. Verify terms through your operator.",
+          "bn": "নিরাপদ সিদ্ধান্ত। অপ্রত্যাশিত পুরস্কারে টাকা কাটা সাবস্ক্রিপশন থাকতে পারে। অপারেটরের মাধ্যমে শর্ত যাচাই করুন।"
+        },
+        "id": 122
+      },
+      {
+        "text": {
+          "en": "Text the supplied number without checking.",
+          "bn": "যাচাই না করে ওই নম্বরে এসএমএস পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. Unsolicited rewards can involve paid subscriptions. Verify terms through your operator.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। অপ্রত্যাশিত পুরস্কারে টাকা কাটা সাবস্ক্রিপশন থাকতে পারে। অপারেটরের মাধ্যমে শর্ত যাচাই করুন।"
+        },
+        "id": 123
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "UCI SMS Spam Collection",
+      "url": "https://archive.ics.uci.edu/dataset/228/sms",
+      "original_label": "spam",
+      "locator": "public examples, free talk-time reward; English",
+      "provenance_note": "Paraphrase of public example; spam label is not proof of phishing"
+    }
+  },
+  {
+    "id": 13,
+    "phase": "training",
+    "category": "benign",
+    "title": {
+      "en": "Family message",
+      "bn": "পরিবারের মেসেজ"
+    },
+    "message": {
+      "en": "My exam results will be published tomorrow. Please pray for me.",
+      "bn": "আমার পরীক্ষার ফল কাল বের হবে। দোয়া করবেন।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Reply normally if I know the sender.",
+          "bn": "প্রেরককে চিনলে স্বাভাবিকভাবে উত্তর দিই।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. An expected family message without a sensitive request can be ordinary communication. Never send secrets.",
+          "bn": "নিরাপদ সিদ্ধান্ত। পরিচিত পরিবারের প্রত্যাশিত মেসেজে গোপন তথ্য না চাইলে তা সাধারণ যোগাযোগ হতে পারে। গোপন তথ্য দেবেন না।"
+        },
+        "id": 131
+      },
+      {
+        "text": {
+          "en": "Send my bank PIN as a reply.",
+          "bn": "উত্তরে ব্যাংকের পিন পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. An expected family message without a sensitive request can be ordinary communication. Never send secrets.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। পরিচিত পরিবারের প্রত্যাশিত মেসেজে গোপন তথ্য না চাইলে তা সাধারণ যোগাযোগ হতে পারে। গোপন তথ্য দেবেন না।"
+        },
+        "id": 132
+      },
+      {
+        "text": {
+          "en": "Report it as fraud solely because it is a message.",
+          "bn": "শুধু মেসেজ বলে প্রতারণা হিসেবে রিপোর্ট করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. An expected family message without a sensitive request can be ordinary communication. Never send secrets.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। পরিচিত পরিবারের প্রত্যাশিত মেসেজে গোপন তথ্য না চাইলে তা সাধারণ যোগাযোগ হতে পারে। গোপন তথ্য দেবেন না।"
+        },
+        "id": 133
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "normal",
+      "locator": "preview line 142; Bengali",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 14,
+    "phase": "training",
+    "category": "benign",
+    "title": {
+      "en": "Shopping conversation",
+      "bn": "কেনাকাটার কথা"
+    },
+    "message": {
+      "en": "Are you going to the shopping mall?",
+      "bn": "আপনি কি শপিং মলে যাচ্ছেন?"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Send my bank account password.",
+          "bn": "ব্যাংক অ্যাকাউন্টের পাসওয়ার্ড পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A simple question with no payment or credential request is not automatically suspicious. Consider who sent it.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। টাকা বা গোপন তথ্য না চাওয়া সাধারণ প্রশ্ন নিজে থেকেই সন্দেহজনক নয়। প্রেরক কে তা বিবেচনা করুন।"
+        },
+        "id": 141
+      },
+      {
+        "text": {
+          "en": "Block every message containing a shopping question.",
+          "bn": "কেনাকাটার প্রশ্ন থাকা সব মেসেজ ব্লক করি।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. A simple question with no payment or credential request is not automatically suspicious. Consider who sent it.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। টাকা বা গোপন তথ্য না চাওয়া সাধারণ প্রশ্ন নিজে থেকেই সন্দেহজনক নয়। প্রেরক কে তা বিবেচনা করুন।"
+        },
+        "id": 142
+      },
+      {
+        "text": {
+          "en": "Reply normally if I recognize the sender.",
+          "bn": "প্রেরক পরিচিত হলে স্বাভাবিকভাবে উত্তর দিই।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. A simple question with no payment or credential request is not automatically suspicious. Consider who sent it.",
+          "bn": "নিরাপদ সিদ্ধান্ত। টাকা বা গোপন তথ্য না চাওয়া সাধারণ প্রশ্ন নিজে থেকেই সন্দেহজনক নয়। প্রেরক কে তা বিবেচনা করুন।"
+        },
+        "id": 143
+      }
+    ],
+    "source": {
+      "type": "dataset_preview_adaptation",
+      "dataset": "Bengali SMS Smishing Dataset",
+      "url": "https://huggingface.co/datasets/sujonsamir/bengali-sms-smishing-dataset",
+      "original_label": "normal",
+      "locator": "preview line 130; English",
+      "provenance_note": "Adapted/paraphrased; identifiers removed; original collection method not independently verified"
+    }
+  },
+  {
+    "id": 15,
+    "phase": "training",
+    "category": "benign",
+    "title": {
+      "en": "Appointment reminder",
+      "bn": "অ্যাপয়েন্টমেন্টের স্মরণবার্তা"
+    },
+    "message": {
+      "en": "Your previously booked clinic appointment is tomorrow at 10 AM. No reply required.",
+      "bn": "আপনার আগে ঠিক করা ক্লিনিকের অ্যাপয়েন্টমেন্ট কাল সকাল ১০টায়। উত্তর দেওয়ার দরকার নেই।"
+    },
+    "choices": [
+      {
+        "text": {
+          "en": "Assume every appointment reminder is fraud.",
+          "bn": "সব অ্যাপয়েন্টমেন্টের স্মরণবার্তা প্রতারণা ধরে নিই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. An expected reminder without a request for money or secrets can be useful. Verify with known contacts if uncertain.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। টাকা বা গোপন তথ্য না চাওয়া প্রত্যাশিত স্মরণবার্তা কাজে লাগতে পারে। সন্দেহ হলে পরিচিত নম্বরে যাচাই করুন।"
+        },
+        "id": 151
+      },
+      {
+        "text": {
+          "en": "Keep the reminder; call the clinic’s known number if unsure.",
+          "bn": "স্মরণবার্তা রাখি; সন্দেহ হলে ক্লিনিকের পরিচিত নম্বরে কল করি।"
+        },
+        "safe": true,
+        "feedback": {
+          "en": "Safe action. An expected reminder without a request for money or secrets can be useful. Verify with known contacts if uncertain.",
+          "bn": "নিরাপদ সিদ্ধান্ত। টাকা বা গোপন তথ্য না চাওয়া প্রত্যাশিত স্মরণবার্তা কাজে লাগতে পারে। সন্দেহ হলে পরিচিত নম্বরে যাচাই করুন।"
+        },
+        "id": 152
+      },
+      {
+        "text": {
+          "en": "Send my OTP to confirm the appointment.",
+          "bn": "অ্যাপয়েন্টমেন্ট নিশ্চিত করতে ওটিপি পাঠাই।"
+        },
+        "safe": false,
+        "feedback": {
+          "en": "Not the safest action. An expected reminder without a request for money or secrets can be useful. Verify with known contacts if uncertain.",
+          "bn": "এটি সবচেয়ে নিরাপদ সিদ্ধান্ত নয়। টাকা বা গোপন তথ্য না চাওয়া প্রত্যাশিত স্মরণবার্তা কাজে লাগতে পারে। সন্দেহ হলে পরিচিত নম্বরে যাচাই করুন।"
+        },
+        "id": 153
+      }
+    ],
+    "source": {
+      "type": "author_created",
+      "dataset": null,
+      "url": null,
+      "original_label": "normal",
+      "locator": "author-created control",
+      "provenance_note": "Synthetic educational control"
+    }
+  }
+]
